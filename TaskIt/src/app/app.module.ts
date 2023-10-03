@@ -6,6 +6,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { SharedComponent } from './shared/shared.component';
 import { UserComponent } from './shared/user/user.component';
 import { ProfileComponent } from './shared/profile/profile.component';
+import { TasklistComponent } from './tasklist/tasklist.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { ProfileComponent } from './shared/profile/profile.component';
     SidebarComponent,
     SharedComponent,
     UserComponent,
-    ProfileComponent
+    ProfileComponent,
+    TasklistComponent
   ],
   imports: [
     BrowserModule
