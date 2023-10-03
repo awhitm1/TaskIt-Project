@@ -1,0 +1,14 @@
+<div class="row mb-3" *ngFor="let user of myProfile">
+  <a href="#" class="list-group-item clearfix">
+    <div class="float-left">
+      <h4 class="list-group-item-heading">{{ user.name }}</h4>
+      <p class="list-group-item-text mb-0">{{ user.getEmail() }}</p>
+    </div>
+    <div class="float-right">
+      <img src="{{ user.imgPath }}" alt="{{user.name}}" clas="img-responsive rounded" style="max-height: 50px">
+    </div>
+  </a>
+</div>
+
+
+
