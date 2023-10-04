@@ -1,3 +1,3 @@
 export class Task {
-  constructor(title: string, dueDate:string, priority:string,status:string,) {}
+  constructor(public title: string, public dueDate:string, public priority:string,public status:string,) {}
 }

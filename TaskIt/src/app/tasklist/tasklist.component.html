@@ -1,3 +1,28 @@
+
 <div class="container">
   <h1>Task List</h1>
 </div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Due Date</th>
+      <th scope="col">Priority</th>
+      <th scope="col">Status</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <tr *ngFor="let task of myTasks">
+      <th scope="row">{{ task.title }}</th>
+      <td>{{ task.dueDate }}</td>
+      <td>{{ task.priority }}</td>
+      <td>{{ task.status }}</td>
+      <td><i class="bi bi-eye"></i><i class="bi bi-pencil-square"></i><i class="bi bi-trash"></i></td>
+    </tr>
+
+  </tbody>
+</table>
