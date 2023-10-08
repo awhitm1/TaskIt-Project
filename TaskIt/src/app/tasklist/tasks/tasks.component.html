@@ -1,1 +1,19 @@
-
+<tr *ngFor="let task of myTasks">
+  <th scope="row">
+    {{ task.title }}
+  </th>
+  <td>
+    {{ task.dueDate }}
+  </td>
+  <td>
+    {{ task.priority }}
+  </td>
+  <td>
+    {{ task.status }}
+  </td>
+  <td>
+    <i class="bi bi-eye"></i>
+    <i class="bi bi-pencil-square"></i>
+    <i class="bi bi-trash"></i>
+  </td>
+</tr>
