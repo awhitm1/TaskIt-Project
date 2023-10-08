@@ -1,26 +1,19 @@
-
 <div class="row mb-3" *ngFor="let user of myProfile">
-	<div class="col-md-12">
-		<a href="#" class="list-group-item clearfix">
-
-			<div class="float-left">
-				<img
+<div class="d-flex flex-row bd-highlight mb-3 border">
+  <div class="p-2 bd-highlight">
+    <img
 					src="{{ user.imgPath }}"
 					alt="{{ user.name }}"
-					class="img-responsive rounded"
-					style="max-height: 50px; margin-top:7px; margin-right: 5px"
-				/>
-			</div>
-      <div>
-				<h4 class="list-group-item-heading">{{ user.name }}</h4>
-				<p class="list-group-item-text mb-0">{{ user.email }}</p>
-			</div>
-      <div class="col-md-12">
-      <div class="float-right">
-				<i class="bi bi-box-arrow-right"></i>
-      </div>
-      </div>
-		</a>
-	</div>
-</div>
+					class="img-responsive rounded-circle"
 
+				/>
+  </div>
+  <div class="bd-highlight">
+    <h4>{{ user.name }}</h4>
+		<p>{{ user.email }}</p>
+  </div>
+  <div class="p-2 bd-highlight align-self-center">
+    <i class="bi bi-box-arrow-right"></i>
+  </div>
+</div>
+</div>

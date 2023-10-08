@@ -21,6 +21,7 @@ import { TasksComponent } from './tasklist/tasks/tasks.component';
   ],
   imports: [
     BrowserModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
