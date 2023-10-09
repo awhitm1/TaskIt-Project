@@ -56,21 +56,25 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form>
+                <form #newTaskForm="ngForm" (ngSubmit)="addNewTask()" novalidate>
+
                   <div class="form-group">
                     <label for="task-title" class="col-form-label">Title</label>
-                    <input type="text" class="form-control" id="task-name">
+                    <input type="text" [class.is-invalid]="taskTitle.invalid && taskTitle.touched" class="form-control" required [(ngModel)]="newTask.title" #taskTitle="ngModel" name="task-title" id="task-title">
+                    <small class="text-danger" [class.d-none]="taskTitle.valid || taskTitle.untouched" >Title is required</small>
                   </div>
+
                   <div class="form-group">
-                    <label for="due" class="col-form-label">Due</label>
-                    <input type="datetime-local" class="form-control" id="due">
+                    <label for="task-due" class="col-form-label">Due</label>
+                    <input type="datetime-local" class="form-control" required [(ngModel)]="newTask.dueDate" name="task-due" id="task-due">
                   </div>
+
                   <div class="form-group">
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
-                        <label class="input-group-text" for="priority">Priority</label>
+                        <label class="input-group-text" for="task-priority">Priority</label>
                       </div>
-                      <select class="custom-select" id="priority">
+                      <select class="custom-select" [(ngModel)]="newTask.priority" name="task-priority" id="task-priority">
 
                         <option value="High">High</option>
                         <option value="Medium" selected>Medium</option>
@@ -82,21 +86,22 @@
                   <div class="form-group">
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
-                        <label class="input-group-text" for="Status">Status</label>
+                        <label class="input-group-text" for="task-status">Status</label>
                       </div>
-                      <select class="custom-select" id="status">
-                        <option value="to-do" selected>To-Do</option>
-                        <option value="done">Done</option>
+                      <select class="custom-select" [(ngModel)]="newTask.status" name="task-status" id="task-status">
+                        <option value="To-Do" selected>To-Do</option>
+                        <option value="Done">Done</option>
                       </select>
                     </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" [disabled]="newTaskForm.form.invalid || taskTitle.pristine" class="btn btn-primary">Save changes</button>
                   </div>
                 </form>
               </div>
 
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
+
             </div>
           </div>
         </div>
@@ -116,7 +121,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let task of altTasks">
+            <tr *ngFor="let task of myTasks">
               <th scope="row">
                 {{ task.title }}
               </th>
@@ -131,11 +136,74 @@
               </td>
               <td>
                 <i class="bi bi-eye"></i>
-                <i class="bi bi-pencil-square"></i>
-                <i class="bi bi-trash"></i>
+
+
+
+
+                <i class="bi bi-pencil-square" data-toggle="modal" data-target="#editTaskModal"></i>
+
+                <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="newTaskLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="newTaskLabel">Edit Task</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form #editTaskForm="ngForm" (ngSubmit)="editTask()" novalidate>
+
+                          <div class="form-group">
+                            <label for="task-title" class="col-form-label">Title</label>
+                            <input type="text" [class.is-invalid]="taskTitle.invalid && taskTitle.touched" class="form-control" required [(ngModel)]="this.task.title" #taskTitle="ngModel" name="task-title" id="task-title">
+                            <small class="text-danger" [class.d-none]="taskTitle.valid || taskTitle.untouched" >Title is required</small>
+                          </div>
+
+                          <div class="form-group">
+                            <label for="task-due" class="col-form-label">Due</label>
+                            <input type="datetime-local" class="form-control" required [(ngModel)]="this.task.dueDate" name="task-due" id="task-due">
+                          </div>
+
+                          <div class="form-group">
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <label class="input-group-text" for="task-priority">Priority</label>
+                              </div>
+                              <select class="custom-select" [(ngModel)]="this.task.priority" name="task-priority" id="task-priority">
+
+                                <option value="High">High</option>
+                                <option value="Medium" selected>Medium</option>
+                                <option value="Low">Low</option>
+
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <label class="input-group-text" for="task-status">Status</label>
+                              </div>
+                              <select class="custom-select" [(ngModel)]="this.task.status" name="task-status" id="task-status">
+                                <option value="To-Do" selected>To-Do</option>
+                                <option value="Done">Done</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" [disabled]="editTaskForm.form.invalid" class="btn btn-primary">Save changes</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <i class="bi bi-trash" (click)="delTask(myTasks.findIndex(this.task))"></i>
               </td>
             </tr>
-            <!-- <app-tasks></app-tasks> -->
+
           </tbody>
 
         </table>
@@ -147,4 +215,3 @@
   </div>
 
 </div>
-
