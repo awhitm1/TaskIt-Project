@@ -11,6 +11,8 @@ import { UserComponent } from './shared/user/user.component';
 import { ProfileComponent } from './shared/profile/profile.component';
 import { TasklistComponent } from './tasklist/tasklist.component';
 import { TasksComponent } from './tasklist/tasks/tasks.component';
+import { KanBanComponent } from './kan-ban/kan-ban.component';
+import { KanbanModule } from '@syncfusion/ej2-angular-kanban';
 
 @NgModule({
   declarations: [
@@ -20,11 +22,13 @@ import { TasksComponent } from './tasklist/tasks/tasks.component';
     UserComponent,
     ProfileComponent,
     TasklistComponent,
-    TasksComponent
+    TasksComponent,
+    KanBanComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    KanbanModule
 
   ],
   providers: [],

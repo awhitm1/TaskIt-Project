@@ -2,13 +2,15 @@
 <div class="d-flex flex-row bd-highlight mb-3">
   <div class="p-2 bd-highlight border">
     <aside class="aside aside-1">
-      <app-sidebar></app-sidebar>
+      <app-sidebar (displaySelected)="onChangeDisplay($event)"></app-sidebar>
+
     </aside>
   </div>
   <div class="p-2 flex-grow-1 bd-highlight">
     <article class="main">
       <header class="header"></header>
-      <app-tasklist></app-tasklist>
+      <app-tasklist *ngIf="loadedDisplay === 'task-list'"></app-tasklist>
+      <app-kan-ban *ngIf="loadedDisplay === 'kan-ban'"></app-kan-ban>
       <footer class="footer"></footer>
     </article>
   </div>

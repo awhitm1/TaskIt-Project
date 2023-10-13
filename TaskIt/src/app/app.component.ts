@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'TaskIt';
+  loadedDisplay = 'task-list';
+
+  onChangeDisplay (display: string){
+    this.loadedDisplay = display;
+  }
 }
