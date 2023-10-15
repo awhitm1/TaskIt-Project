@@ -1,3 +1,39 @@
+<!-- <div class="container">
+  <table class="task-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Due Date</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks; let i = index">
+        <td>{{ task.title }}</td>
+        <td>{{ task.dueDate }}</td>
+        <td>{{ task.priority }}</td>
+        <td>
+          {{ task.status }}
+        </td>
+        <td>
+          <a (click)="setEdit(i)"
+            ><span class="material-symbols-outlined"> Edit </span>
+            <i class="fa fa-pencil"></i>
+          </a>
+          <a (click)="deleteTask(i)"
+            ><span class="material-symbols-outlined"> Delete </span>
+            <i class="fa fa-trash"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+
+
+
 <div class="d-flex flex-column bd-highlight mb-3 item1">
   <div class="p-2 bd-highlight">
     <h1>Task List</h1>
@@ -45,7 +81,7 @@
       <div class="ml-auto">
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newTaskModal">Add New Task</button>
 
-        <!-- Modal -->
+         <!-- Modal -->
         <div class="modal fade" id="newTaskModal" tabindex="-1" aria-labelledby="newTaskLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -56,7 +92,8 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form #newTaskForm="ngForm" (ngSubmit)="addNewTask()" novalidate>
+                <form #newTaskForm="ngForm" novalidate>
+                <!--<form #newTaskForm="ngForm" (ngSubmit)="this.tasks.addTask()" novalidate> -->
 
                   <div class="form-group">
                     <label for="task-title" class="col-form-label">Title</label>
@@ -108,7 +145,7 @@
       </div>
     </div>
 
-    <div class="p-2 bd-highlight">
+    <div class="p-2 bd-highlight" >
       <div class="table-section item3">
         <table class="table table-hover">
           <thead>
@@ -121,7 +158,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let task of myTasks">
+            <tr *ngFor="let task of tasks; let i = index">
               <th scope="row">
                 {{ task.title }}
               </th>

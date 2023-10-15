@@ -10,7 +10,7 @@ import { SharedComponent } from './shared/shared.component';
 import { UserComponent } from './shared/user/user.component';
 import { ProfileComponent } from './shared/profile/profile.component';
 import { TasklistComponent } from './tasklist/tasklist.component';
-import { TasksComponent } from './tasklist/tasks/tasks.component';
+
 import { KanBanComponent } from './kan-ban/kan-ban.component';
 import { KanbanModule } from '@syncfusion/ej2-angular-kanban';
 
@@ -22,7 +22,7 @@ import { KanbanModule } from '@syncfusion/ej2-angular-kanban';
     UserComponent,
     ProfileComponent,
     TasklistComponent,
-    TasksComponent,
+
     KanBanComponent
   ],
   imports: [
