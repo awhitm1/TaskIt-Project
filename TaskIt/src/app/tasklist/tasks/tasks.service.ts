@@ -29,8 +29,11 @@ export class TasksService {
     return this.myTasks.slice();
   }
 
-  updateTask(index: number){
-
+  updateTask(index: number, task: Task){
+    console.log(this.myTasks[index]);
+    console.log(task);
+    this.myTasks[index] = task;
+    console.log(this.myTasks)
   }
   delTask(idx: number){
     this.myTasks.splice(idx,1)

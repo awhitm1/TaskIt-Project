@@ -10,6 +10,7 @@ import { TasksService } from './tasks/tasks.service';
 export class TasklistComponent implements OnInit {
   selectedTask = {};
   tasks: Task[];
+  editedTaskIdx: number;
 
   newTask = new Task('New Task Title', '8am', 'Medium', 'To-Do');
 
@@ -23,15 +24,15 @@ export class TasklistComponent implements OnInit {
     }
 
 
-    onTaskEdit(idx){
+    onTaskEdit(idx: number){
+      this.editedTaskIdx = idx;
       this.selectedTask = this.tasks[idx]
-
-    console.log(this.selectedTask);
+      console.log(this.editedTaskIdx);
   }
 
-  editTask(index: number){
-      console.log(index);
-      this.tasksService.updateTask(index);
+  editTask(task: Task){
+      console.log(this.editedTaskIdx, task);
+      this.tasksService.updateTask(this.editedTaskIdx, task);
   }
 
 }

@@ -189,7 +189,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form #editTaskForm="ngForm" (ngSubmit)="editTask(selectedTask[index])" novalidate>
+                        <form #editTaskForm="ngForm" (ngSubmit)="editTask(this.selectedTask)" novalidate>
 
                           <div class="form-group">
                             <label for="task-title" class="col-form-label">Title</label>
