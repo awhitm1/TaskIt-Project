@@ -172,8 +172,30 @@
                 {{ task.status }}
               </td>
               <td>
-                <i class="bi bi-eye"></i>
+                <i class="bi bi-eye" data-toggle="modal" data-target="#viewTaskModal" (click)="onTaskEdit(index)"></i>
+                <div class="modal fade" id="viewTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">View Task</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div><h1>{{this.selectedTask.title}}</h1></div>
+                        <div><h5>Time: {{this.selectedTask.dueDate}}</h5></div>
+                        <div><h5>Status: {{this.selectedTask.status}}</h5></div>
+                        <div><h5>Priority: {{this.selectedTask.priority}}</h5></div>
 
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
 
 
@@ -237,7 +259,7 @@
                   </div>
                 </div>
 
-                <i class="bi bi-trash" (click)="delTask(idx)"></i>
+                <i class="bi bi-trash" (click)="delTask(index)"></i>
               </td>
             </tr>
 

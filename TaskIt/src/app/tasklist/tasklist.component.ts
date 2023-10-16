@@ -20,19 +20,25 @@ export class TasklistComponent implements OnInit {
 
   ngOnInit(): void {
       this.tasks = this.tasksService.showTasks();
-
+      this.tasksService.taskListChanged.subscribe((tasks: Task[]) => {
+        this.tasks=tasks
+      })
     }
 
 
     onTaskEdit(idx: number){
       this.editedTaskIdx = idx;
       this.selectedTask = this.tasks[idx]
-      console.log(this.editedTaskIdx);
+
   }
 
-  editTask(task: Task){
-      console.log(this.editedTaskIdx, task);
+    editTask(task: Task){
+
       this.tasksService.updateTask(this.editedTaskIdx, task);
   }
+
+    delTask(idx: number){
+      this.tasksService.delTask(idx);
+    }
 
 }
