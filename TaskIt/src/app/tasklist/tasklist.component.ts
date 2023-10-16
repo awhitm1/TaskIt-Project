@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Task } from './tasks/task.model';
 import { TasksService } from './tasks/tasks.service';
 
@@ -12,9 +12,7 @@ export class TasklistComponent implements OnInit {
   tasks: Task[];
   editedTaskIdx: number;
 
-  newTask = new Task('New Task Title', '8am', 'Medium', 'To-Do');
-
-
+  newTask = new Task('New Task Title', '', 'Medium', 'To-Do');
 
   constructor(private tasksService: TasksService ){}
 
@@ -25,20 +23,23 @@ export class TasklistComponent implements OnInit {
       })
     }
 
+    addNewTask(task: Task){
+      this.tasksService.addNewTask(task);
+    }
 
     onTaskEdit(idx: number){
       this.editedTaskIdx = idx;
       this.selectedTask = this.tasks[idx]
-
   }
 
     editTask(task: Task){
-
       this.tasksService.updateTask(this.editedTaskIdx, task);
   }
 
     delTask(idx: number){
       this.tasksService.delTask(idx);
     }
+
+
 
 }

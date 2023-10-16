@@ -23,6 +23,7 @@ export class TasksService {
 
   addNewTask(task: Task){
     this.myTasks.push(task);
+    this.taskListChanged.emit(this.myTasks.slice())
   }
 
   showTasks(){
