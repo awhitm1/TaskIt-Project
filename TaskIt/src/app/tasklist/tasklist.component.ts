@@ -8,18 +8,30 @@ import { TasksService } from './tasks/tasks.service';
   styleUrls: ['./tasklist.component.css']
 })
 export class TasklistComponent implements OnInit {
-  @Input() taskEl: Task;
+  selectedTask = {};
   tasks: Task[];
-  selectedTask: Task;
+
   newTask = new Task('New Task Title', '8am', 'Medium', 'To-Do');
+
+
 
   constructor(private tasksService: TasksService ){}
 
   ngOnInit(): void {
       this.tasks = this.tasksService.showTasks();
-      this.tasksService.taskSelected.subscribe((taskEl: Task) => this.selectedTask = taskEl);
-      console.log(this.tasks)
-      ;
+
+    }
+
+
+    onTaskEdit(idx){
+      this.selectedTask = this.tasks[idx]
+
+    console.log(this.selectedTask);
+  }
+
+  editTask(index: number){
+      console.log(index);
+      this.tasksService.updateTask(index);
   }
 
 }
