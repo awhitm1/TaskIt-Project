@@ -10,9 +10,16 @@ import { SharedComponent } from './shared/shared.component';
 import { UserComponent } from './shared/user/user.component';
 import { ProfileComponent } from './shared/profile/profile.component';
 import { TasklistComponent } from './tasklist/tasklist.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { KanBanComponent } from './kan-ban/kan-ban.component';
-import { KanbanModule } from '@syncfusion/ej2-angular-kanban';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -22,13 +29,19 @@ import { KanbanModule } from '@syncfusion/ej2-angular-kanban';
     UserComponent,
     ProfileComponent,
     TasklistComponent,
+    KanBanComponent,
 
-    KanBanComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    KanbanModule
+    BrowserAnimationsModule,
+    MatSlideToggleModule,
+    DragDropModule,
+    MatCardModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatProgressBarModule
 
   ],
   providers: [],

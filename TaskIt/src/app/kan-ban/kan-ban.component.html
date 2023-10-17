@@ -1,7 +1,62 @@
-<ejs-kanban [dataSource]='data' [cardSettings]='cardSettings'>
-  <e-columns>
-      <e-column headerText='To do' keyField='Open'></e-column>
-      <e-column headerText='In Progress' keyField='InProgress'></e-column>
-      <e-column headerText='Done' keyField='Close'></e-column>
-  </e-columns>
-</ejs-kanban>
+<div class="container">
+  <h2>To do</h2>
+
+  <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="kanBanTasksToDo"
+      [cdkDropListConnectedTo]="doneList" class="list" (cdkDropListDropped)="drop($event)">
+    <div class="list-item" *ngFor="let item of kanBanTasksToDo" cdkDrag style="text-align: center;">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-subtitle>{{item.dueDate}}</mat-card-subtitle>
+          <mat-card-title>{{item.title}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Priority: {{ item.priority }}</p>
+          <mat-divider></mat-divider>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>Edit</button>
+          <button mat-button>Delete</button>
+        </mat-card-actions>
+        <mat-card-footer>
+          <mat-progress-bar mode="buffer" value="50" [color]="color"></mat-progress-bar>
+        </mat-card-footer>
+      </mat-card>
+
+      <!-- <h1>{{item.title}}</h1>
+      <p>at {{item.dueDate}}</p>
+      <h5>Priority: {{item.priority}}</h5> -->
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h2>Done</h2>
+
+  <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="kanBanTasksDone"
+      [cdkDropListConnectedTo]="todoList" class="list" (cdkDropListDropped)="drop($event)">
+    <div class="list-item" *ngFor="let item of kanBanTasksDone" cdkDrag style="text-align: center;">
+
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-subtitle>{{item.dueDate}}</mat-card-subtitle>
+          <mat-card-title>{{item.title}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Priority: {{ item.priority }}</p>
+          <mat-divider></mat-divider>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>Edit</button>
+          <button mat-button>Delete</button>
+        </mat-card-actions>
+        <mat-card-footer>
+          <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
+        </mat-card-footer>
+      </mat-card>
+
+      <!-- <h1>{{item.title}}</h1>
+      <p>at {{item.dueDate}}</p>
+      <h5>Priority: {{item.priority}}</h5> -->
+    </div>
+  </div>
+</div>
