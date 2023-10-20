@@ -38,4 +38,9 @@ export class TasksService {
     this.myTasks.splice(idx,1)
     this.taskListChanged.emit(this.myTasks.slice())
   }
+
+  updateAllTasks(tasks: Task[]){
+    this.myTasks = tasks;
+    this.taskListChanged.emit(this.myTasks.slice())
+  }
 }

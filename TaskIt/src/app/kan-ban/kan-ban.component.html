@@ -6,12 +6,19 @@
         class="list" (cdkDropListDropped)="drop($event, 'To-Do')">
       <div class="list-item" *ngFor="let item of kanBanTasksToDo" cdkDrag style="text-align: center;">
         <mat-card class="example-card">
-          <mat-card-header>
-            <mat-card-subtitle>{{item.dueDate}}</mat-card-subtitle>
-            <mat-card-title>{{item.title}}</mat-card-title>
+          <mat-card-header [ngClass]="{'priorityHigh': item.priority === 'High', 'priorityMedium': item.priority === 'Medium', 'priorityLow': item.priority === 'Low'}">
+            <div class="container">
+              <div class="row justify-content-between">
+                <div class="column">
+                 <mat-card-title>{{item.title}}</mat-card-title>
+                </div>
+                <div class="column"><p>Priority: {{ item.priority }}</p></div>
+              </div>
+
+            </div>
           </mat-card-header>
           <mat-card-content>
-            <p>Priority: {{ item.priority }}</p>
+            <mat-card-subtitle>{{item.dueDate}}</mat-card-subtitle>
             <mat-divider></mat-divider>
           </mat-card-content>
           <mat-card-actions>
@@ -33,12 +40,19 @@
         class="list" (cdkDropListDropped)="drop($event, 'In Progress')">
       <div class="list-item" *ngFor="let item of kanBanTasksInProgress" cdkDrag style="text-align: center;">
         <mat-card class="example-card">
-          <mat-card-header>
-            <mat-card-subtitle>{{item.dueDate}}</mat-card-subtitle>
-            <mat-card-title>{{item.title}}</mat-card-title>
+          <mat-card-header [ngClass]="{'priorityHigh': item.priority === 'High', 'priorityMedium': item.priority === 'Medium', 'priorityLow': item.priority === 'Low'}">
+            <div class="container">
+              <div class="row justify-content-between">
+                <div class="column">
+                 <mat-card-title>{{item.title}}</mat-card-title>
+                </div>
+                <div class="column"><p>Priority: {{ item.priority }}</p></div>
+              </div>
+
+            </div>
           </mat-card-header>
           <mat-card-content>
-            <p>Priority: {{ item.priority }}</p>
+            <mat-card-subtitle>{{item.dueDate}}</mat-card-subtitle>
             <mat-divider></mat-divider>
           </mat-card-content>
           <mat-card-actions>
@@ -63,14 +77,22 @@
       <div class="list-item" *ngFor="let item of kanBanTasksDone" cdkDrag style="text-align: center;">
         <div class="custom-placeholder" *cdkDragPlaceholder></div>
         <mat-card class="example-card">
-          <mat-card-header>
-            <mat-card-subtitle>{{item.dueDate}}</mat-card-subtitle>
-            <mat-card-title>{{item.title}}</mat-card-title>
+          <mat-card-header [ngClass]="{'priorityHigh': item.priority === 'High', 'priorityMedium': item.priority === 'Medium', 'priorityLow': item.priority === 'Low'}">
+            <div class="container">
+              <div class="row justify-content-between">
+                <div class="column">
+                 <mat-card-title>{{item.title}}</mat-card-title>
+                </div>
+                <div class="column"><p>Priority: {{ item.priority }}</p></div>
+              </div>
+            </div>
           </mat-card-header>
+
           <mat-card-content>
-            <p>Priority: {{ item.priority }}</p>
+            <mat-card-subtitle>{{item.dueDate}}</mat-card-subtitle>
             <mat-divider></mat-divider>
           </mat-card-content>
+
           <mat-card-actions>
             <button mat-button>Edit</button>
             <button mat-button>Delete</button>
