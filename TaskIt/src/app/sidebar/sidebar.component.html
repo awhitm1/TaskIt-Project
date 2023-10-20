@@ -5,10 +5,10 @@
   </div>
 
   <div class="p-2 bd-highlight">
-    <button class="btn btn-block btn-success" (click)="onSelect('task-list')">Task List</button>
+    <button class="btn btn-block btn-success" (click)="onSelect('task-list')" *ngIf="!taskListSelected">Switch to Task List</button>
   </div>
   <div class="p-2 bd-highlight flex-grow-1">
-    <button class="btn btn-block btn-success" (click)="onSelect('kan-ban')">Kan-Ban</button>
+    <button class="btn btn-block btn-success" (click)="onSelect('kan-ban')" *ngIf="taskListSelected">Switch to Kan-Ban</button>
   </div>
 
 

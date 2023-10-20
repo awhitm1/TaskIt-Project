@@ -41,7 +41,5 @@ export class KanBanComponent implements OnInit {
     }
   }
 
-  sortStatus(){
 
-  }
 }
