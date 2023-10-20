@@ -3,7 +3,7 @@
     <h2>To do</h2>
 
     <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="kanBanTasksToDo"
-        class="list" (cdkDropListDropped)="drop($event)">
+        class="list" (cdkDropListDropped)="drop($event, 'To-Do')">
       <div class="list-item" *ngFor="let item of kanBanTasksToDo" cdkDrag style="text-align: center;">
         <mat-card class="example-card">
           <mat-card-header>
@@ -30,7 +30,7 @@
     <h2>In Progress</h2>
 
     <div cdkDropList #inProgressList="cdkDropList" [cdkDropListData]="kanBanTasksInProgress"
-        class="list" (cdkDropListDropped)="drop($event)">
+        class="list" (cdkDropListDropped)="drop($event, 'In Progress')">
       <div class="list-item" *ngFor="let item of kanBanTasksInProgress" cdkDrag style="text-align: center;">
         <mat-card class="example-card">
           <mat-card-header>
@@ -59,7 +59,7 @@
 
 
     <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="kanBanTasksDone"
-        class="list" (cdkDropListDropped)="drop($event)">
+        class="list" (cdkDropListDropped)="drop($event, 'Done')">
       <div class="list-item" *ngFor="let item of kanBanTasksDone" cdkDrag style="text-align: center;">
         <div class="custom-placeholder" *cdkDragPlaceholder></div>
         <mat-card class="example-card">

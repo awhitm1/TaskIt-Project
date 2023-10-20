@@ -15,6 +15,7 @@ export class KanBanComponent implements OnInit {
   kanBanTasksToDo: Task[];
   kanBanTasksInProgress: Task[];
   kanBanTasksDone: Task[];
+  movedItem: Task;
 
   color: ThemePalette = 'primary';
   highPriorityColor: ThemePalette = 'warn';
@@ -33,11 +34,13 @@ export class KanBanComponent implements OnInit {
       this.kanBanTasksInProgress = this.kanBanTasks.filter((task) => task.status === 'In Progress');
       this.kanBanTasksToDo = this.kanBanTasks.filter((task) => task.status === 'To-Do');
 
+
+
   }
 
 
 
-  drop(event: CdkDragDrop<string[]>): void {
+  drop(event: CdkDragDrop<string[]>, listStatus: String): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -45,7 +48,12 @@ export class KanBanComponent implements OnInit {
           event.container.data,
           event.previousIndex,
           event.currentIndex);
+          console.log(event.container.data[event.currentIndex]);
+          // event.container.data[event.currentIndex].status = listStatus
+          console.log(listStatus)
     }
+
+
   }
 
 

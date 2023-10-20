@@ -15,6 +15,7 @@
         <div class="dropdown-menu">
           <ul>
             <li>To-Do</li>
+            <li>In Progress</li>
             <li>Done</li>
           </ul>
         </div>
@@ -91,6 +92,7 @@
                       </div>
                       <select class="custom-select" [(ngModel)]="this.newTask.status" name="task-status" id="task-status">
                         <option value="To-Do" selected>To-Do</option>
+                        <option value="In Progress">In Progress</option>
                         <option value="Done">Done</option>
                       </select>
                     </div>
@@ -209,6 +211,7 @@
                               </div>
                               <select class="custom-select" [(ngModel)]="selectedTask.status" name="task-status" id="task-status">
                                 <option value="To-Do" selected>To-Do</option>
+                                <option value="In Progress">In Progress</option>
                                 <option value="Done">Done</option>
                               </select>
                             </div>
