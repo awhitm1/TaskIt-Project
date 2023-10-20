@@ -1,23 +1,15 @@
 
 <div class="d-flex flex-column bd-highlight mb-3" style="height:100vh">
   <div class="p-2 bd-highlight">
-    <h1><a routerLink="landing"><span><b style="color: green">TASK</b>It</span></a></h1>
+    <h1><a routerLink="landing" (click)="setLanding()"><span><b style="color: green">TASK</b>It</span></a></h1>
   </div>
 
   <div class="p-2 bd-highlight">
-    <button class="btn btn-block btn-success" routerLink="tasklist" routerLinkActive="active" (click)="onSelect('task-list')">Task List</button>
+    <button class="btn btn-block btn-success" routerLink="tasklist" routerLinkActive="active" (click)="onSelect('task-list')" *ngIf="!taskListSelected || onLanding">Task List</button>
   </div>
   <div class="p-2 bd-highlight flex-grow-1">
-    <button class="btn btn-block btn-success" routerLink="kanban" routerLinkActive="active" (click)="onSelect('kan-ban')">Kan-Ban</button>
+    <button class="btn btn-block btn-success" routerLink="kanban" routerLinkActive="active" (click)="onSelect('kan-ban')" *ngIf="taskListSelected || onLanding">Kan-Ban</button>
   </div>
-    <!-- Switching buttons -->
-  <!-- <div class="p-2 bd-highlight">
-    <button class="btn btn-block btn-success" (click)="onSelect('task-list')" *ngIf="!taskListSelected">Switch to Task List</button>
-  </div>
-  <div class="p-2 bd-highlight flex-grow-1">
-    <button class="btn btn-block btn-success" (click)="onSelect('kan-ban')" *ngIf="taskListSelected">Switch to Kan-Ban</button>
-  </div> -->
-
 
   <div class="p-2 bd-highlight align-self-stretch">
     <app-profile></app-profile>

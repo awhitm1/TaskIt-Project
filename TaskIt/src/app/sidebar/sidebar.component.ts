@@ -9,17 +9,21 @@ export class SidebarComponent {
   // @Output() displaySelected = new EventEmitter<string>();
   selectedButton: string;
   taskListSelected: boolean = true;
-
+  onLanding: boolean = true;
 
   onSelect(display: string){
     // this.displaySelected.emit(display);
     this.selectedButton = display;
-
+    this.onLanding = false;
     if (this.selectedButton === 'task-list'){
       this.taskListSelected = true;
     } else {
       this.taskListSelected = false;
     }
+  }
+
+  setLanding(){
+    this.onLanding = true;
   }
 
 }
