@@ -9,8 +9,9 @@
   <div class="p-2 flex-grow-1 bd-highlight">
     <article class="main">
       <header class="header"></header>
-      <app-tasklist *ngIf="loadedDisplay === 'task-list'"></app-tasklist>
-      <app-kan-ban *ngIf="loadedDisplay === 'kan-ban'"></app-kan-ban>
+      <router-outlet></router-outlet>
+      <!-- <app-tasklist *ngIf="loadedDisplay === 'task-list'"></app-tasklist>
+      <app-kan-ban *ngIf="loadedDisplay === 'kan-ban'"></app-kan-ban> -->
 
       <footer class="footer"></footer>
     </article>

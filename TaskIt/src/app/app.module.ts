@@ -21,6 +21,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     MatCardModule,
     MatDividerModule,
     MatButtonModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    AppRoutingModule
 
   ],
   providers: [],

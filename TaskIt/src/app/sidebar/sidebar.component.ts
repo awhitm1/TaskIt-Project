@@ -6,13 +6,13 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-  @Output() displaySelected = new EventEmitter<string>();
+  // @Output() displaySelected = new EventEmitter<string>();
   selectedButton: string;
   taskListSelected: boolean = true;
 
 
   onSelect(display: string){
-    this.displaySelected.emit(display);
+    // this.displaySelected.emit(display);
     this.selectedButton = display;
 
     if (this.selectedButton === 'task-list'){
