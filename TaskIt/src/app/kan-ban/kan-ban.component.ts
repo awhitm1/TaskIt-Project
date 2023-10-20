@@ -7,12 +7,15 @@ import {ThemePalette} from '@angular/material/core';
 @Component({
   selector: 'app-kan-ban',
   templateUrl: './kan-ban.component.html',
-  styleUrls: ['./kan-ban.component.css']
+  styleUrls: ['./kan-ban.component.css'],
+
 })
 export class KanBanComponent implements OnInit {
   kanBanTasks: Task[];
   kanBanTasksToDo: Task[];
+  kanBanTasksInProgress: Task[];
   kanBanTasksDone: Task[];
+
   color: ThemePalette = 'primary';
   highPriorityColor: ThemePalette = 'warn';
   highPriorityBuffer: number = 50;
@@ -27,9 +30,13 @@ export class KanBanComponent implements OnInit {
       });
 
       this.kanBanTasksDone = this.kanBanTasks.filter((task) => task.status === 'Done');
+      this.kanBanTasksInProgress = this.kanBanTasks.filter((task) => task.status === 'In Progress');
       this.kanBanTasksToDo = this.kanBanTasks.filter((task) => task.status === 'To-Do');
 
   }
+
+
+
   drop(event: CdkDragDrop<string[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);

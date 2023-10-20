@@ -14,7 +14,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { KanBanComponent } from './kan-ban/kan-ban.component';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { DragDropModule, CdkDragPlaceholder } from '@angular/cdk/drag-drop';
 
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatButtonModule} from '@angular/material/button';
@@ -45,7 +45,8 @@ import { AppRoutingModule } from './app-routing.module';
     MatDividerModule,
     MatButtonModule,
     MatProgressBarModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CdkDragPlaceholder
 
   ],
   providers: [],
