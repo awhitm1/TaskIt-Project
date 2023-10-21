@@ -17,10 +17,6 @@ export class KanBanComponent implements OnInit {
   kanBanTasksDone: Task[];
   kanBanEditedTasks: Task[];
 
-  color: ThemePalette = 'primary';
-  highPriorityColor: ThemePalette = 'warn';
-  highPriorityBuffer: number = 50;
-
 
   constructor (private tasksService: TasksService){};
 

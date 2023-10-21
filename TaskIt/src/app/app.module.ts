@@ -22,6 +22,12 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AppRoutingModule } from './app-routing.module';
+import { NotificationsComponent } from './shared/notifications/notifications.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -33,6 +39,7 @@ import { AppRoutingModule } from './app-routing.module';
     TasklistComponent,
     KanBanComponent,
     LandingPageComponent,
+    NotificationsComponent,
 
   ],
   imports: [
@@ -46,7 +53,12 @@ import { AppRoutingModule } from './app-routing.module';
     MatButtonModule,
     MatProgressBarModule,
     AppRoutingModule,
-    CdkDragPlaceholder
+    CdkDragPlaceholder,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
 
   ],
   providers: [],
