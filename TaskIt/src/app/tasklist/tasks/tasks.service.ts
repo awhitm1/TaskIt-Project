@@ -11,7 +11,7 @@ import { Subject } from 'rxjs';
 
 
 export class TasksService {
-  // taskListChanged = new EventEmitter<Task[]>();
+
   taskListChanged = new Subject<Task[]>();
 
   private myTasks: Task[] = [
@@ -21,7 +21,7 @@ export class TasksService {
     new Task ('Walk Dog again', '5:30pm', 'High','Done'),
     new Task ('Feed Cat', '5:45pm', 'High','To-Do'),
     new Task ('Clean House', '12pm', 'High','Done'),
-    new Task ('Do Laundry', '4pm', 'High','In Progress'),
+    new Task ('Do Laundry', '4pm', 'High','In Progress')
   ];
 
   constructor() { }

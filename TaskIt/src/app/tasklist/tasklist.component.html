@@ -3,9 +3,9 @@
     <h1>Task List</h1>
   </div>
 
-  <div class="p-2 bd-highlight flex-grow-1 item2">
+  <div class="d-flex p-2 bd-highlight flex-grow-1 item2">
     <div class="d-flex flex-row">
-      <mat-form-field>
+      <mat-form-field class="d-flex, flex-grow-1">
       <mat-label>Search</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="By Title - Date - Status - Priority" #input>
       </mat-form-field>
@@ -88,7 +88,7 @@
     <!-- Title Column -->
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
-      <td mat-cell *matCellDef="let row"> {{row.title}} </td>
+      <td mat-cell *matCellDef="let row, index as i"> {{row.title}} </td>
     </ng-container>
 
     <!-- Due Column -->
@@ -112,97 +112,93 @@
     <!-- Actions Column -->
     <ng-container matColumnDef="Actions">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
-      <td>
-        <i class="bi bi-eye" data-toggle="modal" data-target="#viewTaskModal" (click)="onTaskEdit(index)"></i>
+      <td mat-cell *matCellDef="let row; index as i">
 
-        <div class="modal fade" id="viewTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">View Task</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div><h1>{{this.selectedTask.title}}</h1></div>
-                <div><h5>Time: {{this.selectedTask.dueDate}}</h5></div>
-                <div><h5>Status: {{this.selectedTask.status}}</h5></div>
-                <div><h5>Priority: {{this.selectedTask.priority}}</h5></div>
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-
-        <i class="bi bi-pencil-square" data-toggle="modal" data-target="#editTaskModal" (click) = "onTaskEdit(index)"></i>
-
-        <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="newTaskLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="newTaskLabel">Edit Task</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  &times;
-                </button>
-              </div>
-              <div class="modal-body">
-                <form #editTaskForm="ngForm" (ngSubmit)="editTask(this.selectedTask)" novalidate>
-
-                  <div class="form-group">
-                    <label for="task-title" class="col-form-label">Title</label>
-                    <input type="text" [class.is-invalid]="taskTitle.invalid && taskTitle.touched" class="form-control" required [(ngModel)]="selectedTask.title"  name="task-title" id="task-title">
-                    <small class="text-danger" [class.d-none]="taskTitle.valid || taskTitle.untouched" >Title is required</small>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="task-due" class="col-form-label">Due</label>
-                    <input type="datetime-local" class="form-control" required [(ngModel)]="selectedTask.dueDate" name="task-due" id="task-due">
-                  </div>
-
-                  <div class="form-group">
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <label class="input-group-text" for="task-priority">Priority</label>
+        <i class="bi bi-eye" data-toggle="modal" data-target="#viewTaskModal" (click)="onTaskSelect(i, paginator.pageIndex, paginator.pageSize)"></i>
+                <div class="modal fade" id="viewTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">View Task</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
                       </div>
-                      <select class="custom-select" [(ngModel)]="selectedTask.priority" name="task-priority" id="task-priority">
-
-                        <option value="High">High</option>
-                        <option value="Medium" selected>Medium</option>
-                        <option value="Low">Low</option>
-
-                      </select>
+                      <div class="modal-body">
+                        <div><h1>{{this.selectedTask.title}}</h1></div>
+                        <div><h5>Time: {{this.selectedTask.dueDate}}</h5></div>
+                        <div><h5>Status: {{this.selectedTask.status}}</h5></div>
+                        <div><h5>Priority: {{this.selectedTask.priority}}</h5></div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                        </button>
+                      </div>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <label class="input-group-text" for="task-status">Status</label>
+                </div>
+
+                <i class="bi bi-pencil-square" data-toggle="modal" data-target="#editTaskModal" (click)="onTaskSelect(i, paginator.pageIndex, paginator.pageSize)"></i>
+
+                <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="newTaskLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="newTaskLabel">Edit Task</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          &times;
+                        </button>
                       </div>
-                      <select class="custom-select" [(ngModel)]="selectedTask.status" name="task-status" id="task-status">
-                        <option value="To-Do" selected>To-Do</option>
-                        <option value="In Progress">In Progress</option>
-                        <option value="Done">Done</option>
-                      </select>
+                      <div class="modal-body">
+                        <form #editTaskForm="ngForm" (ngSubmit)="editTask(this.selectedTask)" novalidate>
+
+                          <div class="form-group">
+                            <label for="task-title" class="col-form-label">Title</label>
+                            <input type="text" [class.is-invalid]="taskTitle.invalid && taskTitle.touched" class="form-control" required [(ngModel)]="this.selectedTask.title"  name="task-title" id="task-title">
+                            <small class="text-danger" [class.d-none]="taskTitle.valid || taskTitle.untouched" >Title is required</small>
+                          </div>
+
+                          <div class="form-group">
+                            <label for="task-due" class="col-form-label">Due</label>
+                            <input type="datetime-local" class="form-control" required [(ngModel)]="this.selectedTask.dueDate" name="task-due" id="task-due">
+                          </div>
+
+                          <div class="form-group">
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <label class="input-group-text" for="task-priority">Priority</label>
+                              </div>
+                              <select class="custom-select" [(ngModel)]="this.selectedTask.priority" name="task-priority" id="task-priority">
+
+                                <option value="High">High</option>
+                                <option value="Medium" selected>Medium</option>
+                                <option value="Low">Low</option>
+
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <label class="input-group-text" for="task-status">Status</label>
+                              </div>
+                              <select class="custom-select" [(ngModel)]="this.selectedTask.status" name="task-status" id="task-status">
+                                <option value="To-Do" selected>To-Do</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Done">Done</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" [disabled]="editTaskForm.form.invalid" class="btn btn-primary" id="save">Save changes</button>
+                          </div>
+                        </form>
+                      </div>
                     </div>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" [disabled]="editTaskForm.form.invalid" class="btn btn-primary" id="save" data-dismiss="modal">Save changes</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <i class="bi bi-trash" (click)="delTask(index)"></i>
+                </div>
+              <i class="bi bi-trash" (click)="delTask(i, paginator.pageIndex, paginator.pageSize)"></i>
       </td>
     </ng-container>
 
@@ -217,3 +213,5 @@
 
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of Tasks"></mat-paginator>
 </div>
+
+

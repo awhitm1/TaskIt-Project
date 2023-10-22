@@ -1,11 +1,12 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import {MatSort, MatSortModule} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+
 import { TasksService } from './tasks/tasks.service';
 import { Task } from './tasks/task.model';
+import { Subject } from 'rxjs';
+
 
 
 @Component({
@@ -15,12 +16,15 @@ import { Task } from './tasks/task.model';
 
 })
 export class TasklistComponent implements OnInit, AfterViewInit {
+  taskChanged = new Subject<Task>();
+
   displayedColumns: string[] = ['title', 'dueDate', 'status', 'priority', 'Actions'];
   selectedTask = {};
-  editedTaskIdx: number;
+  selectedTaskIdx: number;
   tasks: Task[];
   dataSource: MatTableDataSource<Task>;
   newTask = new Task('New Task Title', '', 'Medium', 'To-Do');
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -55,66 +59,32 @@ export class TasklistComponent implements OnInit, AfterViewInit {
   }
 
   addNewTask(task: Task){
+    this.taskChanged.next(task);
     this.tasksService.addNewTask(task);
+
   }
 
-  onTaskEdit(idx: number){
-    this.editedTaskIdx = idx;
-    this.selectedTask = this.tasks[idx]
+  onTaskSelect(index: number, pageIndex: number, pageSize: number){
+
+    this.selectedTaskIdx = index + (pageIndex*pageSize);
+    this.selectedTask = this.dataSource.sortData(this.dataSource.data, this.dataSource.sort)[this.selectedTaskIdx];
+
+
   }
 
   editTask(task: Task){
-    this.tasksService.updateTask(this.editedTaskIdx, task);
+    this.taskChanged.next(task);
+    this.tasksService.updateAllTasks(this.dataSource.sortData(this.dataSource.data, this.dataSource.sort));
   }
 
-  delTask(idx: number){
-    this.tasksService.delTask(idx);
+  delTask(index: number, pageIndex: number, pageSize: number){
+
+    this.selectedTaskIdx = index + (pageIndex*pageSize);
+    this.selectedTask = this.dataSource.sortData(this.dataSource.data, this.dataSource.sort)[this.selectedTaskIdx];
+    this.dataSource.sortData(this.dataSource.data, this.dataSource.sort).splice(this.selectedTaskIdx,1);
+    this.tasksService.updateAllTasks(this.dataSource.sortData(this.dataSource.data, this.dataSource.sort));
   }
+
 }
 
 
-// import { Component, OnInit } from '@angular/core';
-// import { Task } from './tasks/task.model';
-// import { TasksService } from './tasks/tasks.service';
-
-// @Component({
-//   selector: 'app-tasklist',
-//   templateUrl: './tasklist.component.html',
-//   styleUrls: ['./tasklist.component.css']
-// })
-// export class TasklistComponent implements OnInit {
-//   selectedTask = {};
-//   tasks: Task[];
-//   editedTaskIdx: number;
-
-//   newTask = new Task('New Task Title', '', 'Medium', 'To-Do');
-
-//   constructor(private tasksService: TasksService ){}
-
-//   ngOnInit(): void {
-//       this.tasks = this.tasksService.showTasks();
-//       this.tasksService.taskListChanged.subscribe((tasks: Task[]) => {
-//         this.tasks=tasks
-//       })
-//     }
-
-//     addNewTask(task: Task){
-//       this.tasksService.addNewTask(task);
-//     }
-
-//     onTaskEdit(idx: number){
-//       this.editedTaskIdx = idx;
-//       this.selectedTask = this.tasks[idx]
-//   }
-
-//     editTask(task: Task){
-//       this.tasksService.updateTask(this.editedTaskIdx, task);
-//   }
-
-//     delTask(idx: number){
-//       this.tasksService.delTask(idx);
-//     }
-
-
-
-// }
