@@ -18,6 +18,9 @@ export class KanBanComponent implements OnInit, OnDestroy {
   kanBanTasksDone: Task[];
   kanBanEditedTasks: Task[];
   sub: Subscription;
+  selectedTask: Task = {title: '',dueDate: '',priority: '',status: ''};
+  selectedList: Task [];
+  sortByPriority: string [] = ['High','Medium','Low'];
 
 
 
@@ -37,9 +40,12 @@ export class KanBanComponent implements OnInit, OnDestroy {
   }
 
   refreshList(){
-    this.kanBanTasksDone = this.kanBanTasks.filter((task) => task.status === 'Done');
+      this.kanBanTasksDone = this.kanBanTasks.filter((task) => task.status === 'Done');
+      this.kanBanTasksDone.sort((a,b) => this.sortByPriority.indexOf(a.priority) - this.sortByPriority.indexOf(b.priority));
       this.kanBanTasksInProgress = this.kanBanTasks.filter((task) => task.status === 'In Progress');
+      this.kanBanTasksInProgress.sort((a,b) => this.sortByPriority.indexOf(a.priority) - this.sortByPriority.indexOf(b.priority));
       this.kanBanTasksToDo = this.kanBanTasks.filter((task) => task.status === 'To-Do');
+      this.kanBanTasksToDo.sort((a,b) => this.sortByPriority.indexOf(a.priority) - this.sortByPriority.indexOf(b.priority));
   }
 
   drop(event: CdkDragDrop<Task[]>, listStatus: string): void {
@@ -55,6 +61,7 @@ export class KanBanComponent implements OnInit, OnDestroy {
       }
 
       this.kanBanEditedTasks = this.kanBanTasksDone.concat(this.kanBanTasksInProgress, this.kanBanTasksToDo);
+      this.refreshList();
       this.tasksService.updateAllTasks(this.kanBanEditedTasks);
 
 
@@ -62,6 +69,37 @@ export class KanBanComponent implements OnInit, OnDestroy {
 
   onUpdateTask(task: Task){
     this.tasksService.updateTask(task);
+
     this.refreshList();
   }
+
+  delTaskToDo(idx: number){
+    this.kanBanTasksToDo.splice(idx,1);
+    this.kanBanEditedTasks = this.kanBanTasksDone.concat(this.kanBanTasksInProgress, this.kanBanTasksToDo);
+      this.tasksService.updateAllTasks(this.kanBanEditedTasks);
+  }
+  delTaskInProgress(idx: number){
+    this.kanBanTasksInProgress.splice(idx,1);
+    this.kanBanEditedTasks = this.kanBanTasksDone.concat(this.kanBanTasksInProgress, this.kanBanTasksToDo);
+      this.tasksService.updateAllTasks(this.kanBanEditedTasks);
+  }
+  delTaskDone(idx: number){
+    this.kanBanTasksDone.splice(idx,1);
+    this.kanBanEditedTasks = this.kanBanTasksDone.concat(this.kanBanTasksInProgress, this.kanBanTasksToDo);
+      this.tasksService.updateAllTasks(this.kanBanEditedTasks);
+  }
+
+  onTaskSelectToDo(index: number){
+      this.selectedTask=this.kanBanTasksToDo[index];
+  }
+  onTaskSelectInProgress(index: number){
+      this.selectedTask=this.kanBanTasksInProgress[index];
+  }
+  onTaskSelectedDone(index: number){
+      this.selectedTask=this.kanBanTasksDone[index];
+
+  }
+
+
+
 }

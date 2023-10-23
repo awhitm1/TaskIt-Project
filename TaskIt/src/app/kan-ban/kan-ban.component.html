@@ -40,7 +40,7 @@
               <div><form>
                 <div class="form-group">
                 <label>Priority</label>
-                <select [(ngModel)]="item.priority" name="task-priority">
+                <select [(ngModel)]="item.priority" name="task-priority" (change)="onUpdateTask(task)">
 
                   <option value="High">High</option>
                   <option value="Medium">Medium</option>
@@ -54,8 +54,11 @@
             <mat-divider></mat-divider>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button>Edit</button>
-            <button mat-button>Delete</button>
+            <button class="bi bi-pencil-square" mat-button data-toggle="modal" data-target="#editTaskModal" (click)="onTaskSelectToDo(i)"></button>
+
+
+
+            <button class="bi bi-trash" mat-button (click)="delTaskToDo(i)"></button>
           </mat-card-actions>
           <mat-card-footer>
             <mat-progress-bar mode="buffer" value="50" [color]="color"></mat-progress-bar>
@@ -70,7 +73,7 @@
 
     <div cdkDropList #inProgressList="cdkDropList" [cdkDropListData]="kanBanTasksInProgress"
         class="list" (cdkDropListDropped)="drop($event, 'In Progress')">
-      <div class="list-item" *ngFor="let item of kanBanTasksInProgress" cdkDrag style="text-align: center;">
+      <div class="list-item" *ngFor="let item of kanBanTasksInProgress, index as i" cdkDrag style="text-align: center;">
         <mat-card class="task-card">
           <mat-card-header [ngClass]="{'priorityHigh': item.priority === 'High', 'priorityMedium': item.priority === 'Medium', 'priorityLow': item.priority === 'Low'}">
             <div class="container">
@@ -83,7 +86,7 @@
                       <form>
                         <div class="form-group" >
 
-                        <select [(ngModel)]="item.status" name="choose-status" >
+                        <select [(ngModel)]="item.status" name="choose-status" (change)="onUpdateTask(task)">
 
                           <option value="To-Do">To-Do</option>
                           <option value="In Progress">In Progress</option>
@@ -106,7 +109,7 @@
               <div><form>
                 <div class="form-group">
                 <label>Priority</label>
-                <select [(ngModel)]="item.priority" name="task-priority">
+                <select [(ngModel)]="item.priority" name="task-priority" (change)="onUpdateTask(task)">
 
                   <option value="High">High</option>
                   <option value="Medium">Medium</option>
@@ -119,10 +122,18 @@
             </mat-card-subtitle>
             <mat-divider></mat-divider>
           </mat-card-content>
+
           <mat-card-actions>
-            <button mat-button>Edit</button>
-            <button mat-button>Delete</button>
+            <button class="bi bi-pencil-square" mat-button data-toggle="modal" data-target="#editTaskModal" (click)="onTaskSelectInProgress(i)"></button>
+
+
+
+            <button class="bi bi-trash" mat-button (click)="delTaskInProgress(i)"></button>
+
+
+
           </mat-card-actions>
+
           <mat-card-footer>
             <mat-progress-bar mode="indeterminate" [color]="color"></mat-progress-bar>
           </mat-card-footer>
@@ -138,7 +149,7 @@
 
     <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="kanBanTasksDone"
         class="list" (cdkDropListDropped)="drop($event, 'Done')">
-      <div class="list-item" *ngFor="let item of kanBanTasksDone" cdkDrag style="text-align: center;">
+      <div class="list-item" *ngFor="let item of kanBanTasksDone, index as i" cdkDrag style="text-align: center;">
         <div class="custom-placeholder" *cdkDragPlaceholder></div>
         <mat-card class="task-card">
           <mat-card-header [ngClass]="{'priorityHigh': item.priority === 'High', 'priorityMedium': item.priority === 'Medium', 'priorityLow': item.priority === 'Low'}">
@@ -152,7 +163,7 @@
                       <form>
                         <div class="form-group" >
 
-                        <select [(ngModel)]="item.status" name="choose-status" >
+                        <select [(ngModel)]="item.status" name="choose-status" (change)="onUpdateTask(task)">
 
                           <option value="To-Do">To-Do</option>
                           <option value="In Progress">In Progress</option>
@@ -175,7 +186,7 @@
               <div><form>
                 <div class="form-group">
                 <label>Priority</label>
-                <select [(ngModel)]="item.priority" name="task-priority">
+                <select [(ngModel)]="item.priority" name="task-priority" (change)="onUpdateTask(task)">
 
                   <option value="High">High</option>
                   <option value="Medium">Medium</option>
@@ -189,8 +200,69 @@
             <mat-divider></mat-divider>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button>Edit</button>
-            <button mat-button>Delete</button>
+             <button class="bi bi-pencil-square" mat-button data-toggle="modal" data-target="#editTaskModal" (click)="onTaskSelectedDone(i)"></button>
+
+             <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="newTaskLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="newTaskLabel">Edit Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      &times;
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form #editTaskForm="ngForm" (ngSubmit)="onUpdateTask(this.selectedTask)" novalidate>
+
+                      <div class="form-group">
+                        <label for="task-title" class="col-form-label">Title</label>
+                        <input type="text" class="form-control" required [(ngModel)]="this.selectedTask.title"  name="task-title" id="task-title">
+                        <!-- <small class="text-danger" [class.d-none]="tasktitle.valid || tasktitle.untouched" >Title is required</small> -->
+                      </div>
+
+                      <div class="form-group">
+                        <label for="task-due" class="col-form-label">Due</label>
+                        <input type="datetime-local" class="form-control" required [(ngModel)]="this.selectedTask.dueDate" name="task-due" id="task-due">
+                      </div>
+
+                      <div class="form-group">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <label class="input-group-text" for="task-priority">Priority</label>
+                          </div>
+                          <select class="custom-select" [(ngModel)]="this.selectedTask.priority" name="task-priority" id="task-priority">
+
+                            <option value="High">High</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="Low">Low</option>
+
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <label class="input-group-text" for="task-status">Status</label>
+                          </div>
+                          <select class="custom-select" [(ngModel)]="this.selectedTask.status" name="task-status" id="task-status" (change)="onUpdateTask(task)">
+                            <option value="To-Do" selected>To-Do</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Done">Done</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" [disabled]="editTaskForm.form.invalid" class="btn btn-primary" id="save">Save changes</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <button class="bi bi-trash" mat-button (click)="delTaskDone(i)"></button>
           </mat-card-actions>
           <mat-card-footer>
             <mat-progress-bar mode="determinate" [value]=100 [color]="color"></mat-progress-bar>
