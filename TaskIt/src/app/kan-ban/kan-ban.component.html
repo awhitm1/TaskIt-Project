@@ -4,21 +4,53 @@
 
     <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="kanBanTasksToDo"
         class="list" (cdkDropListDropped)="drop($event, 'To-Do')">
-      <div class="list-item" *ngFor="let item of kanBanTasksToDo" cdkDrag style="text-align: center;">
-        <mat-card class="example-card">
+      <div class="list-item" *ngFor="let item of kanBanTasksToDo; index as i" cdkDrag style="text-align: center;">
+        <mat-card class="task-card">
           <mat-card-header [ngClass]="{'priorityHigh': item.priority === 'High', 'priorityMedium': item.priority === 'Medium', 'priorityLow': item.priority === 'Low'}">
             <div class="container">
               <div class="row justify-content-between">
                 <div class="column">
                  <mat-card-title>{{item.title}}</mat-card-title>
                 </div>
-                <div class="column"><p>Priority: {{ item.priority }}</p></div>
+                <div class="column">
+
+                      <form>
+                        <div class="form-group" >
+
+                        <select [(ngModel)]="item.status" (change)="onUpdateTask(task)" name="choose-status" >
+
+                          <option value="To-Do">To-Do</option>
+                          <option value="In Progress">In Progress</option>
+                          <option value="Done">Done</option>
+
+                        </select>
+
+                        </div>
+                      </form>
+
+                </div>
               </div>
 
             </div>
           </mat-card-header>
           <mat-card-content>
-            <mat-card-subtitle>{{item.dueDate}}</mat-card-subtitle>
+
+            <mat-card-subtitle>
+              <div>{{item.dueDate}}</div>
+              <div><form>
+                <div class="form-group">
+                <label>Priority</label>
+                <select [(ngModel)]="item.priority" name="task-priority">
+
+                  <option value="High">High</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Low">Low</option>
+                </select>
+
+              </div>
+              </form>
+            </div>
+            </mat-card-subtitle>
             <mat-divider></mat-divider>
           </mat-card-content>
           <mat-card-actions>
@@ -39,20 +71,52 @@
     <div cdkDropList #inProgressList="cdkDropList" [cdkDropListData]="kanBanTasksInProgress"
         class="list" (cdkDropListDropped)="drop($event, 'In Progress')">
       <div class="list-item" *ngFor="let item of kanBanTasksInProgress" cdkDrag style="text-align: center;">
-        <mat-card class="example-card">
+        <mat-card class="task-card">
           <mat-card-header [ngClass]="{'priorityHigh': item.priority === 'High', 'priorityMedium': item.priority === 'Medium', 'priorityLow': item.priority === 'Low'}">
             <div class="container">
               <div class="row justify-content-between">
                 <div class="column">
                  <mat-card-title>{{item.title}}</mat-card-title>
                 </div>
-                <div class="column"><p>Priority: {{ item.priority }}</p></div>
+                <div class="column">
+
+                      <form>
+                        <div class="form-group" >
+
+                        <select [(ngModel)]="item.status" name="choose-status" >
+
+                          <option value="To-Do">To-Do</option>
+                          <option value="In Progress">In Progress</option>
+                          <option value="Done">Done</option>
+
+                        </select>
+
+                        </div>
+                      </form>
+
+                </div>
               </div>
 
             </div>
           </mat-card-header>
           <mat-card-content>
-            <mat-card-subtitle>{{item.dueDate}}</mat-card-subtitle>
+
+            <mat-card-subtitle>
+              <div>{{item.dueDate}}</div>
+              <div><form>
+                <div class="form-group">
+                <label>Priority</label>
+                <select [(ngModel)]="item.priority" name="task-priority">
+
+                  <option value="High">High</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Low">Low</option>
+                </select>
+
+              </div>
+              </form>
+            </div>
+            </mat-card-subtitle>
             <mat-divider></mat-divider>
           </mat-card-content>
           <mat-card-actions>
@@ -76,29 +140,60 @@
         class="list" (cdkDropListDropped)="drop($event, 'Done')">
       <div class="list-item" *ngFor="let item of kanBanTasksDone" cdkDrag style="text-align: center;">
         <div class="custom-placeholder" *cdkDragPlaceholder></div>
-        <mat-card class="example-card">
+        <mat-card class="task-card">
           <mat-card-header [ngClass]="{'priorityHigh': item.priority === 'High', 'priorityMedium': item.priority === 'Medium', 'priorityLow': item.priority === 'Low'}">
             <div class="container">
               <div class="row justify-content-between">
                 <div class="column">
                  <mat-card-title>{{item.title}}</mat-card-title>
                 </div>
-                <div class="column"><p>Priority: {{ item.priority }}</p></div>
+                <div class="column">
+
+                      <form>
+                        <div class="form-group" >
+
+                        <select [(ngModel)]="item.status" name="choose-status" >
+
+                          <option value="To-Do">To-Do</option>
+                          <option value="In Progress">In Progress</option>
+                          <option value="Done">Done</option>
+
+                        </select>
+
+                        </div>
+                      </form>
+
+                </div>
               </div>
+
             </div>
           </mat-card-header>
-
           <mat-card-content>
-            <mat-card-subtitle>{{item.dueDate}}</mat-card-subtitle>
+
+            <mat-card-subtitle>
+              <div>{{item.dueDate}}</div>
+              <div><form>
+                <div class="form-group">
+                <label>Priority</label>
+                <select [(ngModel)]="item.priority" name="task-priority">
+
+                  <option value="High">High</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Low">Low</option>
+                </select>
+
+              </div>
+              </form>
+            </div>
+            </mat-card-subtitle>
             <mat-divider></mat-divider>
           </mat-card-content>
-
           <mat-card-actions>
             <button mat-button>Edit</button>
             <button mat-button>Delete</button>
           </mat-card-actions>
           <mat-card-footer>
-            <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
+            <mat-progress-bar mode="determinate" [value]=100 [color]="color"></mat-progress-bar>
           </mat-card-footer>
         </mat-card>
 

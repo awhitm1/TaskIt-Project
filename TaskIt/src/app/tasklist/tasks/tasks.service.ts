@@ -14,6 +14,7 @@ export class TasksService {
 
   taskListChanged = new Subject<Task[]>();
 
+
   private myTasks: Task[] = [
     new Task ('Wake Up again', '6am', 'High','To-Do'),
     new Task ('Go to Work again', '8am', 'Low','To-Do'),
@@ -35,17 +36,23 @@ export class TasksService {
     return this.myTasks.slice();
   }
 
-  updateTask(index: number, task: Task){
+  updateTask( task: Task, index?: number){
     this.myTasks[index] = task;
     this.taskListChanged.next(this.myTasks.slice())
+
   }
   delTask(idx: number){
     this.myTasks.splice(idx,1)
-    this.taskListChanged.next(this.myTasks.slice())
+    this.taskListChanged.next(this.myTasks.slice());
+    const task: Task = this.myTasks[idx]
+
   }
 
   updateAllTasks(tasks: Task[]){
     this.myTasks = tasks;
     this.taskListChanged.next(this.myTasks.slice())
+
   }
+
+
 }

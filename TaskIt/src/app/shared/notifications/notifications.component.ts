@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
+import { Task } from 'src/app/tasklist/tasks/task.model';
 import { TasksService } from 'src/app/tasklist/tasks/tasks.service';
 
 @Component({
@@ -16,8 +17,9 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
     this.taskChangeSub = this.tasksService.taskListChanged.subscribe(data=>{
-      console.log(data);
+
       this._snackBar.open("Task Updated", "OK", {duration: 3000, horizontalPosition: 'center', verticalPosition: 'top'})
       // alert(`Your Task has been updated!`)
     })
@@ -26,4 +28,6 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
     this.taskChangeSub.unsubscribe();
   }
+
+
 }
