@@ -1,0 +1,8 @@
+.profile-card {
+  max-height: 100px;
+}
+
+.profile-header-image {
+  background-image: url('https://source.unsplash.com/50x50/?scenery');
+  background-size: cover;
+}

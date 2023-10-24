@@ -23,7 +23,7 @@ export class TasklistComponent implements OnInit, AfterViewInit {
   selectedTaskIdx: number;
   tasks: Task[];
   dataSource: MatTableDataSource<Task>;
-  newTask = new Task('New Task Title', '', 'Medium', 'To-Do');
+  newTask = new Task('New Task Title', new Date(), 'Medium', 'To-Do');
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

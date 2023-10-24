@@ -18,7 +18,7 @@ export class KanBanComponent implements OnInit, OnDestroy {
   kanBanTasksDone: Task[];
   kanBanEditedTasks: Task[];
   sub: Subscription;
-  selectedTask: Task = {title: '',dueDate: '',priority: '',status: ''};
+  selectedTask: Task = {title: '', dueDate: null ,priority: '',status: ''};
   selectedList: Task [];
   sortByPriority: string [] = ['High','Medium','Low'];
 

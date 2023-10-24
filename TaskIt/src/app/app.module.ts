@@ -30,6 +30,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,12 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule
 
   ],
-  providers: [],
+  providers: [
+    {
+      provide: DATE_PIPE_DEFAULT_OPTIONS,
+      useValue: { dateFormat: "EE. MMM. dd, YYY h:mm a "}
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
