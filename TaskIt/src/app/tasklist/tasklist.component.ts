@@ -6,6 +6,7 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { TasksService } from './tasks/tasks.service';
 import { Task } from './tasks/task.model';
 import { Subject } from 'rxjs';
+import { NgForm } from '@angular/forms';
 
 
 
@@ -16,14 +17,15 @@ import { Subject } from 'rxjs';
 
 })
 export class TasklistComponent implements OnInit, AfterViewInit {
-  taskChanged = new Subject<Task>();
 
-  displayedColumns: string[] = ['title', 'dueDate', 'status', 'priority', 'Actions'];
+
+  displayedColumns: string[] = ['taskID', 'title', 'dueDate', 'status', 'priority', 'Actions'];
   selectedTask = {};
   selectedTaskIdx: number;
   tasks: Task[];
   dataSource: MatTableDataSource<Task>;
-  newTask = new Task('New Task Title', new Date(), 'Medium', 'To-Do');
+  newTask = new Task('New Task Title', new Date(), 'Medium', 'To-Do', null);
+  taskDetail: Task = {taskID: null, title: '', dueDate: null, priority: '', status: ''}
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -59,7 +61,7 @@ export class TasklistComponent implements OnInit, AfterViewInit {
   }
 
   addNewTask(task: Task){
-    this.taskChanged.next(task);
+
     this.tasksService.addNewTask(task);
 
   }
@@ -73,7 +75,7 @@ export class TasklistComponent implements OnInit, AfterViewInit {
   }
 
   editTask(task: Task){
-    this.taskChanged.next(task);
+
     this.tasksService.updateAllTasks(this.dataSource.sortData(this.dataSource.data, this.dataSource.sort));
   }
 
@@ -83,6 +85,17 @@ export class TasklistComponent implements OnInit, AfterViewInit {
     this.selectedTask = this.dataSource.sortData(this.dataSource.data, this.dataSource.sort)[this.selectedTaskIdx];
     this.dataSource.sortData(this.dataSource.data, this.dataSource.sort).splice(this.selectedTaskIdx,1);
     this.tasksService.updateAllTasks(this.dataSource.sortData(this.dataSource.data, this.dataSource.sort));
+  }
+
+  onSubmitTask(formObj: NgForm, taskID: number){
+
+    this.taskDetail.title = formObj.value.title;
+    this.taskDetail.dueDate = formObj.value.dueDate;
+    this.taskDetail.priority = formObj.value.priority;
+    this.taskDetail.status = formObj.value.status;
+    this.taskDetail.taskID = taskID;
+
+    this.tasksService.updateTask(this.taskDetail)
   }
 
 }

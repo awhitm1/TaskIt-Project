@@ -10,7 +10,7 @@ import { TasksService } from 'src/app/tasklist/tasks/tasks.service';
   styleUrls: ['./notifications.component.css']
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
-  private taskChangeSub: Subscription;
+  private taskItemChangeSub: Subscription;
 
   constructor(private tasksService: TasksService, private _snackBar: MatSnackBar){
 
@@ -18,15 +18,15 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.taskChangeSub = this.tasksService.taskListChanged.subscribe(data=>{
+    this.taskItemChangeSub = this.tasksService.taskItemChanged.subscribe(data=>{
 
-      this._snackBar.open("Task Updated", "OK", {duration: 3000, horizontalPosition: 'center', verticalPosition: 'top'})
-      // alert(`Your Task has been updated!`)
+      this._snackBar.open(`Task ID ${data.taskID} has been changed to: ${data.title} at ${data.dueDate} with ${data.priority} Priority with Status: ${data.status}`, "OK", {duration: 3000, horizontalPosition: 'center', verticalPosition: 'top'})
+
     })
   }
 
   ngOnDestroy(){
-    this.taskChangeSub.unsubscribe();
+    this.taskItemChangeSub.unsubscribe();
   }
 
 
