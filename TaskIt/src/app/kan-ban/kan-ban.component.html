@@ -17,7 +17,7 @@
                       <form>
                         <div class="form-group dropBoxStyle" >
 
-                        <select [(ngModel)]="item.status" (change)="onUpdateTask(task)" name="choose-status" >
+                        <select [(ngModel)]="item.status" (change)="onUpdateTask(item, 'edit')" name="choose-status">
 
                           <option value="To-Do">To-Do</option>
                           <option value="In Progress">In Progress</option>
@@ -42,7 +42,7 @@
                   <div class="form-group dropBoxStyle">
 
                     <label>Priority: </label>
-                    <select [(ngModel)]="item.priority" name="task-priority" (change)="onUpdateTask(task)">
+                    <select [(ngModel)]="item.priority" name="task-priority" (change)="onUpdateTask(item, 'edit')">
                       <option value="High">High</option>
                       <option value="Medium">Medium</option>
                       <option value="Low">Low</option>
@@ -60,7 +60,7 @@
             <div class="d-flex flex-grow-1 justify-content-between">
               <div class="d-flex"><button class="bi bi-pencil-square" mat-button data-toggle="modal" data-target="#editTaskModal" (click)="onTaskSelectToDo(i)"></button></div>
 
-              <div class="d-flex"><button class="bi bi-trash" mat-button (click)="delTaskToDo(i)"></button></div>
+              <div class="d-flex"><button class="bi bi-trash" mat-button (click)="onUpdateTask(item, 'del')"></button></div>
 
             </div>
           </mat-card-actions>
@@ -90,7 +90,7 @@
                       <form>
                         <div class="form-group dropBoxStyle" >
 
-                        <select [(ngModel)]="item.status" name="choose-status" (change)="onUpdateTask(task)">
+                        <select [(ngModel)]="item.status" name="choose-status" (change)="onUpdateTask(item, 'edit')">
 
                           <option value="To-Do">To-Do</option>
                           <option value="In Progress">In Progress</option>
@@ -115,7 +115,7 @@
                   <div class="form-group dropBoxStyle">
 
                     <label>Priority: </label>
-                    <select [(ngModel)]="item.priority" name="task-priority" (change)="onUpdateTask(task)">
+                    <select [(ngModel)]="item.priority" name="task-priority" (change)="onUpdateTask(item, 'edit')">
                       <option value="High">High</option>
                       <option value="Medium">Medium</option>
                       <option value="Low">Low</option>
@@ -136,7 +136,7 @@
               </div>
 
             <div>
-              <button class="bi bi-trash" mat-button (click)="delTaskInProgress(i)"></button>
+              <button class="bi bi-trash" mat-button (click)="onUpdateTask(item, 'del')"></button>
             </div>
             </div>
           </mat-card-actions>
@@ -170,7 +170,7 @@
                       <form>
                         <div class="form-group dropBoxStyle" >
 
-                        <select [(ngModel)]="item.status" name="choose-status" (change)="onUpdateTask(task)">
+                        <select [(ngModel)]="item.status" name="choose-status" (change)="onUpdateTask(item, 'edit')">
 
                           <option value="To-Do">To-Do</option>
                           <option value="In Progress">In Progress</option>
@@ -195,7 +195,7 @@
                   <div class="form-group dropBoxStyle">
 
                     <label>Priority: </label>
-                    <select [(ngModel)]="item.priority" name="task-priority" (change)="onUpdateTask(task)">
+                    <select [(ngModel)]="item.priority" name="task-priority" (change)="onUpdateTask(item, 'edit')">
                       <option value="High">High</option>
                       <option value="Medium">Medium</option>
                       <option value="Low">Low</option>
@@ -211,7 +211,7 @@
           <mat-card-actions>
             <div class="d-flex flex-grow-1 justify-content-between">
               <div>
-                <button class="bi bi-pencil-square" mat-button data-toggle="modal" data-target="#editTaskModal" (click)="onTaskSelectedDone(i)"></button>
+                <button class="bi bi-pencil-square" mat-button data-toggle="modal" data-target="#editTaskModal" (click)="onTaskSelectDone(i)"></button>
 
                 <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="newTaskLabel" aria-hidden="true">
                   <div class="modal-dialog">
@@ -223,25 +223,25 @@
                          </button>
                       </div>
                     <div class="modal-body">
-                    <form #editTaskForm="ngForm" (ngSubmit)="onUpdateTask(this.selectedTask)" novalidate>
+                    <form #editTaskForm="ngForm" (ngSubmit)="onUpdateTask(this.selectedTask.taskID, 'edit', editTaskForm)" novalidate>
 
                       <div class="form-group">
-                        <label for="task-title" class="col-form-label">Title</label>
-                        <input type="text" class="form-control" required [(ngModel)]="this.selectedTask.title"  name="task-title" id="task-title">
+                        <label for="title" class="col-form-label">Title</label>
+                        <input type="text" class="form-control" required [ngModel]="this.selectedTask.title"  name="title" id="title" ngModel>
                         <!-- <small class="text-danger" [class.d-none]="tasktitle.valid || tasktitle.untouched">Title is required</small> -->
                       </div>
 
                       <div class="form-group">
-                        <label for="task-due" class="col-form-label">Due</label>
-                        <input type="datetime-local" class="form-control" required [(ngModel)]="this.selectedTask.dueDate" name="task-due" id="task-due">
+                        <label for="dueDate" class="col-form-label">Due</label>
+                        <input type="datetime-local" class="form-control" required [ngModel]="this.selectedTask.dueDate" name="dueDate" id="dueDate" ngModel>
                       </div>
 
                       <div class="form-group">
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
-                            <label class="input-group-text" for="task-priority">Priority</label>
+                            <label class="input-group-text" for="priority">Priority</label>
                           </div>
-                          <select class="custom-select" [(ngModel)]="this.selectedTask.priority" name="task-priority" id="task-priority">
+                          <select class="custom-select" [ngModel]="this.selectedTask.priority" name="priority" id="priority" ngModel>
 
                             <option value="High">High</option>
                             <option value="Medium" selected>Medium</option>
@@ -253,9 +253,9 @@
                       <div class="form-group">
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
-                            <label class="input-group-text" for="task-status">Status</label>
+                            <label class="input-group-text" for="status">Status</label>
                           </div>
-                          <select class="custom-select" [(ngModel)]="this.selectedTask.status" name="task-status" id="task-status" (change)="onUpdateTask(task)">
+                          <select class="custom-select" [ngModel]="this.selectedTask.status" name="status" id="status" ngModel>
                             <option value="To-Do" selected>To-Do</option>
                             <option value="In Progress">In Progress</option>
                             <option value="Done">Done</option>
@@ -274,7 +274,7 @@
           </div>
 
             <div>
-            <button class="bi bi-trash" mat-button (click)="delTaskDone(i)"></button>
+            <button class="bi bi-trash" mat-button (click)="onUpdateTask(item, 'del')"></button>
             </div>
           </div>
           </mat-card-actions>

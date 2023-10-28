@@ -156,7 +156,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form #editTaskForm="ngForm" (ngSubmit)="onSubmitTask(editTaskForm, this.selectedTask.taskID)" novalidate>
+                        <form #editTaskForm="ngForm" (ngSubmit)="onSubmitTask(editTaskForm, this.selectedTask.taskID, 'edit')" novalidate>
 
                           <div class="form-group">
                             <label for="title" class="col-form-label">Title</label>

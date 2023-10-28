@@ -4,6 +4,7 @@ import { TasksService } from '../tasklist/tasks/tasks.service';
 import { Task } from '../tasklist/tasks/task.model';
 import {ThemePalette} from '@angular/material/core';
 import { Subscription } from 'rxjs';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-kan-ban',
@@ -21,6 +22,7 @@ export class KanBanComponent implements OnInit, OnDestroy {
   selectedTask: Task = {title: '', dueDate: null ,priority: '',status: '',taskID: null};
   selectedList: Task [];
   sortByPriority: string [] = ['High','Medium','Low'];
+  taskDetail: Task = {taskID: null, title: '', dueDate: null, priority: '', status: ''};
 
 
 
@@ -29,7 +31,8 @@ export class KanBanComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
       this.kanBanTasks = this.tasksService.showTasks();
       this.sub = this.tasksService.taskListChanged.subscribe((tasks: Task[]) => {
-        this.kanBanTasks=tasks
+        this.kanBanTasks=tasks;
+        console.log("OnInit: ", this.kanBanTasks)
       });
 
       this.refreshList();
@@ -66,12 +69,29 @@ export class KanBanComponent implements OnInit, OnDestroy {
 
 
   }
+  onUpdateTask(taskID: number, action: string, formObj?: NgForm){
+    if (formObj) {
+      console.log("OnSubmit: ", formObj);
+      console.log(taskID);
+      console.log(action);
+    this.taskDetail.title = formObj.value.title;
+    this.taskDetail.dueDate = formObj.value.dueDate;
+    this.taskDetail.priority = formObj.value.priority;
+    this.taskDetail.status = formObj.value.status;
+    this.taskDetail.taskID = taskID;
+    }
 
-  onUpdateTask(task: Task){
-    this.tasksService.updateTask(task);
-
+    this.tasksService.updateTask(this.taskDetail, action);
     this.refreshList();
+
   }
+
+  //   onUpdateTask(task: Task, action: string){
+  //   console.log(task);
+  //   this.tasksService.updateTask(task, action);
+
+  //   this.refreshList();
+  // }
 
   delTaskToDo(idx: number){
     this.kanBanTasksToDo.splice(idx,1);
@@ -90,7 +110,10 @@ export class KanBanComponent implements OnInit, OnDestroy {
   }
 
   onTaskSelectToDo(index: number){
+    console.log("OnSelect: ", index);
+    console.log(this.selectedTask);
       this.selectedTask=this.kanBanTasksToDo[index];
+      console.log(this.selectedTask)
   }
   onTaskSelectInProgress(index: number){
       this.selectedTask=this.kanBanTasksInProgress[index];

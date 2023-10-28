@@ -37,27 +37,42 @@ export class TasksService {
     return this.myTasks.slice();
   }
 
-  updateTask( task: Task){
+  updateTask( task: Task, action: string){
 
     const taskIndex = this.myTasks.findIndex(tasks => tasks.taskID === task.taskID);
+    console.log("Service Update: ", task.taskID);
+    console.log("Service Update: ", taskIndex);
+    console.log("Service Update: ", task);
+
     if (taskIndex !== -1){
+      if(action === 'edit'){
       this.myTasks[taskIndex] = {
         ...this.myTasks[taskIndex],
         ...task
 
+        }
+        console.log("Service: ", this.myTasks.slice());
+        this.taskItemChanged.next(this.myTasks[taskIndex]);
+        this.taskListChanged.next(this.myTasks.slice());
       }
     }
+      if (action === 'del'){
+        this.myTasks.splice(taskIndex,1);
+        this.taskItemChanged.next(this.myTasks[taskIndex]);
+        this.taskListChanged.next(this.myTasks.slice());
+    }
+      if (action === 'add') {
+        this.myTasks.push(task);
+        this.taskItemChanged.next(this.myTasks[taskIndex]);
+        this.taskListChanged.next(this.myTasks.slice());
+    }
+      else return;
 
     this.taskItemChanged.next(this.myTasks[taskIndex]);
     this.taskListChanged.next(this.myTasks.slice());
 
   }
-  delTask(idx: number){
-    this.myTasks.splice(idx,1)
-    this.taskListChanged.next(this.myTasks.slice());
-    const task: Task = this.myTasks[idx]
 
-  }
 
   updateAllTasks(tasks: Task[]){
     this.myTasks = tasks;

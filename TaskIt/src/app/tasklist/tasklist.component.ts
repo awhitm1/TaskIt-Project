@@ -87,7 +87,7 @@ export class TasklistComponent implements OnInit, AfterViewInit {
     this.tasksService.updateAllTasks(this.dataSource.sortData(this.dataSource.data, this.dataSource.sort));
   }
 
-  onSubmitTask(formObj: NgForm, taskID: number){
+  onSubmitTask(formObj: NgForm, taskID: number, action: string){
 
     this.taskDetail.title = formObj.value.title;
     this.taskDetail.dueDate = formObj.value.dueDate;
@@ -95,7 +95,7 @@ export class TasklistComponent implements OnInit, AfterViewInit {
     this.taskDetail.status = formObj.value.status;
     this.taskDetail.taskID = taskID;
 
-    this.tasksService.updateTask(this.taskDetail)
+    this.tasksService.updateTask(this.taskDetail, action)
   }
 
 }
