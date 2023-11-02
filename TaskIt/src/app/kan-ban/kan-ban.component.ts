@@ -71,16 +71,18 @@ export class KanBanComponent implements OnInit, OnDestroy {
   }
   onUpdateTask(taskID: number, action: string, formObj?: NgForm){
     if (formObj) {
-      console.log("OnSubmit: ", formObj);
-      console.log(taskID);
-      console.log(action);
+      console.log(formObj);
     this.taskDetail.title = formObj.value.title;
     this.taskDetail.dueDate = formObj.value.dueDate;
     this.taskDetail.priority = formObj.value.priority;
     this.taskDetail.status = formObj.value.status;
     this.taskDetail.taskID = taskID;
+    this.tasksService.updateTask(this.taskDetail, action);
+    this.refreshList();
+    return
     }
 
+    this.taskDetail.taskID = taskID;
     this.tasksService.updateTask(this.taskDetail, action);
     this.refreshList();
 

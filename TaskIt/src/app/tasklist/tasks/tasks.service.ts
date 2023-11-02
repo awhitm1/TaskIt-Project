@@ -16,6 +16,7 @@ export class TasksService {
   taskItemChanged = new Subject<Task>();
 
 
+
   private myTasks: Task[] = [
     new Task ('Wake Up again', new Date('2023-10-23T15:00:00') , 'High','To-Do', 1000),
     new Task ('Go to Work again', new Date('2023-10-23T14:00:00'), 'Low','To-Do',1001),
@@ -40,9 +41,6 @@ export class TasksService {
   updateTask( task: Task, action: string){
 
     const taskIndex = this.myTasks.findIndex(tasks => tasks.taskID === task.taskID);
-    console.log("Service Update: ", task.taskID);
-    console.log("Service Update: ", taskIndex);
-    console.log("Service Update: ", task);
 
     if (taskIndex !== -1){
       if(action === 'edit'){
@@ -51,17 +49,20 @@ export class TasksService {
         ...task
 
         }
-        console.log("Service: ", this.myTasks.slice());
+        this.myTasks[taskIndex].lastAction = 'edited';
         this.taskItemChanged.next(this.myTasks[taskIndex]);
         this.taskListChanged.next(this.myTasks.slice());
       }
     }
       if (action === 'del'){
+        const delItem = this.myTasks[taskIndex];
+        delItem.lastAction = 'deleted';
         this.myTasks.splice(taskIndex,1);
-        this.taskItemChanged.next(this.myTasks[taskIndex]);
+        this.taskItemChanged.next(delItem);
         this.taskListChanged.next(this.myTasks.slice());
     }
       if (action === 'add') {
+        task.lastAction = 'added';
         this.myTasks.push(task);
         this.taskItemChanged.next(this.myTasks[taskIndex]);
         this.taskListChanged.next(this.myTasks.slice());
@@ -80,5 +81,8 @@ export class TasksService {
 
   }
 
-
+  getTaskByID(taskID: number){
+    const taskIndex = this.myTasks.findIndex(tasks => tasks.taskID === taskID);
+    return this.myTasks[taskIndex]
+  }
 }

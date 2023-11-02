@@ -31,6 +31,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
+import { EditTaskComponent } from './shared/edit-task/edit-task.component';
+import { DEFAULT_DIALOG_CONFIG, DialogModule } from '@angular/cdk/dialog';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
     KanBanComponent,
     LandingPageComponent,
     NotificationsComponent,
+    EditTaskComponent,
 
   ],
   imports: [
@@ -63,15 +66,18 @@ import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
     MatSortModule,
     MatPaginatorModule,
     MatSnackBarModule,
-    MatSelectModule
+    MatSelectModule,
+    DialogModule
 
   ],
   providers: [
-    {
-      provide: DATE_PIPE_DEFAULT_OPTIONS,
+    { provide: DATE_PIPE_DEFAULT_OPTIONS,
       useValue: { dateFormat: "EE. MMM. dd, YYY h:mm a "}
-    }
-  ],
+    },
+    { provide: DEFAULT_DIALOG_CONFIG,
+      useValue: {hasBackdrop: false}}
+
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
