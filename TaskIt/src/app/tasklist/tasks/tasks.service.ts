@@ -53,25 +53,25 @@ export class TasksService {
         this.taskItemChanged.next(this.myTasks[taskIndex]);
         this.taskListChanged.next(this.myTasks.slice());
       }
-    }
+
       if (action === 'del'){
         const delItem = this.myTasks[taskIndex];
         delItem.lastAction = 'deleted';
         this.myTasks.splice(taskIndex,1);
         this.taskItemChanged.next(delItem);
         this.taskListChanged.next(this.myTasks.slice());
+      }
+      else return;
     }
-      if (action === 'add') {
+      if (taskIndex == -1 && action === 'add') {
         task.lastAction = 'added';
+        task.taskID = Math.floor(Math.random()*1000000);
+
         this.myTasks.push(task);
-        this.taskItemChanged.next(this.myTasks[taskIndex]);
+        this.taskItemChanged.next(this.myTasks[this.myTasks.findIndex(tasks => tasks.taskID === task.taskID)]);
         this.taskListChanged.next(this.myTasks.slice());
     }
       else return;
-
-    this.taskItemChanged.next(this.myTasks[taskIndex]);
-    this.taskListChanged.next(this.myTasks.slice());
-
   }
 
 

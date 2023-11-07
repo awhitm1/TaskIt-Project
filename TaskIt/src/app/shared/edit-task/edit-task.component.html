@@ -1,4 +1,4 @@
-<form #editTaskForm="ngForm" (ngSubmit)="onUpdateTask(this.selectedTask.taskID, 'edit', editTaskForm)" novalidate>
+<form #editTaskForm="ngForm" (ngSubmit)="onUpdateTask(this.selectedTask.taskID, this.selectedTask.lastAction, editTaskForm)" novalidate>
 
   <div class="form-group">
     <label for="title" class="col-form-label">Title</label>

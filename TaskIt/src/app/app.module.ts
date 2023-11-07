@@ -73,10 +73,7 @@ import { DEFAULT_DIALOG_CONFIG, DialogModule } from '@angular/cdk/dialog';
   providers: [
     { provide: DATE_PIPE_DEFAULT_OPTIONS,
       useValue: { dateFormat: "EE. MMM. dd, YYY h:mm a "}
-    },
-    { provide: DEFAULT_DIALOG_CONFIG,
-      useValue: {hasBackdrop: false}}
-
+    }
    ],
   bootstrap: [AppComponent]
 })

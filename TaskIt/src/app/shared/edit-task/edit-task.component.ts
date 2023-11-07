@@ -16,15 +16,13 @@ export class EditTaskComponent implements OnInit{
   constructor(public tasksService: TasksService, public dialogRef: DialogRef<string>, @Inject(DIALOG_DATA) public data: Task){}
 
   ngOnInit(): void {
-      console.log(this.data.title);
-      console.log(this.selectedTask);
-      console.log(this.selectedTask.title);
 
       this.selectedTask.title=this.data.title;
       this.selectedTask.dueDate=this.data.dueDate;
       this.selectedTask.priority=this.data.priority;
       this.selectedTask.status=this.data.status;
       this.selectedTask.taskID=this.data.taskID;
+      this.selectedTask.lastAction=this.data.lastAction;
   }
   onUpdateTask(taskID: number, action: string, formObj?: NgForm){
     if (formObj) {
