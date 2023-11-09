@@ -33,6 +33,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { EditTaskComponent } from './shared/edit-task/edit-task.component';
 import { DEFAULT_DIALOG_CONFIG, DialogModule } from '@angular/cdk/dialog';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -67,7 +69,9 @@ import { DEFAULT_DIALOG_CONFIG, DialogModule } from '@angular/cdk/dialog';
     MatPaginatorModule,
     MatSnackBarModule,
     MatSelectModule,
-    DialogModule
+    DialogModule,
+    HttpClientModule,
+
 
   ],
   providers: [

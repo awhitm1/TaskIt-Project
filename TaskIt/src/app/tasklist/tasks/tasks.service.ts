@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Task } from './task.model';
 import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+
 
 
 
@@ -15,6 +17,7 @@ export class TasksService {
   taskListChanged = new Subject<Task[]>();
   taskItemChanged = new Subject<Task>();
 
+  firebaseRootUrl = "https://console.firebase.google.com/u/0/project/taskit-55d07/database/taskit-55d07-default-rtdb/data/mytasks.json";
 
 
   private myTasks: Task[] = [
@@ -27,12 +30,13 @@ export class TasksService {
     new Task ('Do Laundry', new Date('2023-10-23T09:00:00'), 'High','In Progress', 1006)
   ];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  addNewTask(task: Task){
-    this.myTasks.push(task);
-    this.taskListChanged.next(this.myTasks.slice())
-  }
+  // addNewTask(task: Task){
+  //   this.myTasks.push(task);
+
+  //   this.taskListChanged.next(this.myTasks.slice())
+  // }
 
   showTasks(){
     return this.myTasks.slice();
@@ -68,6 +72,8 @@ export class TasksService {
         task.taskID = Math.floor(Math.random()*1000000);
 
         this.myTasks.push(task);
+      //   this.http.put(this.firebaseRootUrl, this.myTasks).subscribe(res => { console.log("Firebase DB Response: ", res);
+      // });
         this.taskItemChanged.next(this.myTasks[this.myTasks.findIndex(tasks => tasks.taskID === task.taskID)]);
         this.taskListChanged.next(this.myTasks.slice());
     }
