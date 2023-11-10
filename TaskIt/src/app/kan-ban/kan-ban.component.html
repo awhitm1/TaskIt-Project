@@ -2,7 +2,7 @@
   <div class="container">
     <div class="d-flex flex-row justify-content-between">
       <h2>To do</h2>
-      <button type="button" class="btn btn-success" (click)="onModal()">Add New Task</button>
+      <h2><i class="bi bi-plus-square" (click)="onModal()"></i></h2>
     </div>
     <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="kanBanTasksToDo"
         class="list" (cdkDropListDropped)="drop($event, 'To-Do')">
@@ -65,7 +65,7 @@
   <div class="container">
     <div class="d-flex flex-row justify-content-between">
       <h2>In Progress</h2>
-      <button type="button" class="btn btn-success" (click)="onModal()">Add New Task</button>
+      <h2><i class="bi bi-plus-square" (click)="onModal()"></i></h2>
     </div>
 
     <div cdkDropList #inProgressList="cdkDropList" [cdkDropListData]="kanBanTasksInProgress"
@@ -134,7 +134,7 @@
   <div class="container">
     <div class="d-flex flex-row justify-content-between">
       <h2>Done</h2>
-      <button type="button" class="btn btn-success" (click)="onModal()">Add New Task</button>
+      <h2><i class="bi bi-plus-square" (click)="onModal()"></i></h2>
     </div>
     <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="kanBanTasksDone" class="list" (cdkDropListDropped)="drop($event, 'Done')">
       <div class="list-item" *ngFor="let item of kanBanTasksDone, index as i" cdkDrag style="text-align: center;">

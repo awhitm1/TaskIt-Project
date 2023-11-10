@@ -31,7 +31,8 @@ export class TasklistComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private tasksService: TasksService, public dialog: Dialog) {}
+  constructor(private tasksService: TasksService, public dialog: Dialog) {};
+
   ngOnInit(): void {
     this.tasks = this.tasksService.showTasks();
     this.dataSource = new MatTableDataSource(this.tasks); // maybe needs to be in constructor
@@ -41,6 +42,7 @@ export class TasklistComponent implements OnInit, AfterViewInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
        })
+
   }
 
   ngAfterViewInit() {
@@ -70,26 +72,6 @@ export class TasklistComponent implements OnInit, AfterViewInit {
       const dialogRef = this.dialog.open<string>(EditTaskComponent, {ariaModal: true, hasBackdrop: true, disableClose: false, backdropClass: 'dialogBackdrop', data:  this.selectedTask});
     }
   }
-
-  // addNewTask(task: Task){
-  //   this.tasksService.updateTask(task, 'add');
-  // }
-
-  // onUpdateTask(taskID: number, action: string, formObj?: NgForm){
-  //   if (formObj) {
-
-  //   this.taskDetail.title = formObj.value.title;
-  //   this.taskDetail.dueDate = formObj.value.dueDate;
-  //   this.taskDetail.priority = formObj.value.priority;
-  //   this.taskDetail.status = formObj.value.status;
-  //   this.taskDetail.taskID = taskID;
-  //   this.tasksService.updateTask(this.taskDetail, action);
-  //   return
-  //   }
-
-  //   this.taskDetail.taskID = taskID;
-  //   this.tasksService.updateTask(this.taskDetail, action);
-  // }
 }
 
 
