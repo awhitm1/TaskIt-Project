@@ -31,12 +31,16 @@ export class KanBanComponent implements OnInit, OnDestroy {
   constructor (private tasksService: TasksService, public dialog: Dialog){};
 
   ngOnInit(): void {
-      this.kanBanTasks = this.tasksService.showTasks();
+    this.tasksService.fetchTasksFromFirebase();
+    this.kanBanTasks = this.tasksService.getTasks();
+    console.log(this.kanBanTasks)
+    this.sub = this.tasksService.taskListChanged.subscribe((tasks: Task[]) => {
+      this.kanBanTasks=tasks
+    });
       console.log("Kanban OnInit: ", this.kanBanTasks);
+      console.log(this.kanBanTasks)
 
-      this.sub = this.tasksService.taskListChanged.subscribe((tasks: Task[]) => {
-        this.kanBanTasks=tasks
-      });
+
 
       this.refreshList();
 

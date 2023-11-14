@@ -33,7 +33,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { EditTaskComponent } from './shared/edit-task/edit-task.component';
 import { DEFAULT_DIALOG_CONFIG, DialogModule } from '@angular/cdk/dialog';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthComponent } from './shared/auth/auth.component';
+import { AuthInterceptorService } from './shared/auth/auth-interceptor.service';
 
 
 @NgModule({
@@ -48,6 +50,7 @@ import { HttpClientModule } from '@angular/common/http';
     LandingPageComponent,
     NotificationsComponent,
     EditTaskComponent,
+    AuthComponent,
 
   ],
   imports: [
@@ -77,6 +80,11 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     { provide: DATE_PIPE_DEFAULT_OPTIONS,
       useValue: { dateFormat: "EE. MMM. dd, YYY h:mm a "}
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
     }
    ],
   bootstrap: [AppComponent]

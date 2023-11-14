@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Task } from './task.model';
-import { Subject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Subject, exhaustMap, take, tap } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 
 
 
@@ -31,19 +32,36 @@ export class TasksService {
   //   new Task ('Do Laundry', new Date('2023-10-23T09:00:00'), 'High','In Progress', 1006)
   // ];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authsvc: AuthService) {}
+
+  fetchTasksFromFirebase(){
+    console.log("Calling fetchTasksFromFirebase!");
+    return this.http.get<Task[]>(this.firebaseRootUrl, {}).subscribe((res: Task[] | []) => {
+      this.setTasks(res)
+    });
+
+    // return this.http.get<Task[]>(this.firebaseRootUrl, {}).pipe(
+    //   tap(tasks => {
+    //     console.log("calling setTasks");
+    //     this.setTasks(tasks);
+    //   })
+    // );
 
 
-  showTasks(){
-    this.http.get(this.firebaseRootUrl, {}).subscribe((res: Task[] | []) => {this.setTasks(res)});
-    this.taskListChanged.next(this.myTasks.slice());
-
-    return this.myTasks.slice();
   }
+
+  // showTasks(){
+  //   this.http.get(this.firebaseRootUrl, {}).subscribe((res: Task[] | []) => {this.setTasks(res)});
+  //   this.taskListChanged.next(this.myTasks.slice());
+
+  //   return this.myTasks.slice();
+  // }
 
   setTasks(fetched: Task[]){
     this.myTasks = fetched;
+    console.log("setTasks called");
 
+    this.taskListChanged.next(this.myTasks.slice());
     console.log("set Tasks:", this.myTasks)
   }
 
@@ -87,6 +105,9 @@ export class TasksService {
       else return;
   }
 
+  getTasks(){
+    return this.myTasks;
+  }
 
   updateAllTasks(tasks: Task[]){
     this.myTasks = tasks;

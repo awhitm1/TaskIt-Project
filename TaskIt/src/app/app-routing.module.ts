@@ -7,6 +7,7 @@ import { SharedComponent } from "./shared/shared.component"
 import { ProfileComponent } from "./shared/profile/profile.component"
 import { NotificationsComponent } from "./shared/notifications/notifications.component"
 import { UserComponent } from "./shared/user/user.component"
+import { AuthComponent } from "./shared/auth/auth.component"
 
 
 const appRoutes: Routes = [
@@ -14,6 +15,7 @@ const appRoutes: Routes = [
   {path: "landing", component: LandingPageComponent},
   {path: "tasklist", component: TasklistComponent},
   {path: "kanban", component: KanBanComponent},
+  {path: "auth", component: AuthComponent},
   {path: "shared", component: SharedComponent,
           children: [{path: "profile", component: ProfileComponent},
                       {path: "notifications", component: NotificationsComponent},{path: "user", component: UserComponent}

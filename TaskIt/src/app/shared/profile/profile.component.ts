@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { User } from '../user/user.model';
+import { User } from '../auth/user.model'
 
 @Component({
   selector: 'app-profile',
@@ -7,8 +7,10 @@ import { User } from '../user/user.model';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
-  myProfile: User[] =
-    [new User ('Aaron Whitmer','myemail@myemail.com','https://source.unsplash.com/50x50/?scenery')];
+  // myProfile: User[] =
+  //   [new User ('Aaron Whitmer','myemail@myemail.com','https://source.unsplash.com/50x50/?scenery')];
+
+
 }
 
 
