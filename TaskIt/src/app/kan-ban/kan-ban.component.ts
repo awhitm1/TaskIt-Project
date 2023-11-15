@@ -33,18 +33,10 @@ export class KanBanComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.tasksService.fetchTasksFromFirebase();
     this.kanBanTasks = this.tasksService.getTasks();
-    console.log(this.kanBanTasks)
     this.sub = this.tasksService.taskListChanged.subscribe((tasks: Task[]) => {
       this.kanBanTasks=tasks
     });
-      console.log("Kanban OnInit: ", this.kanBanTasks);
-      console.log(this.kanBanTasks)
-
-
-
       this.refreshList();
-
-
   }
 
   ngOnDestroy(): void {
@@ -68,7 +60,6 @@ export class KanBanComponent implements OnInit, OnDestroy {
           event.container.data,
           event.previousIndex,
           event.currentIndex);
-
           event.container.data[event.currentIndex].status=listStatus
       }
 
@@ -90,7 +81,7 @@ export class KanBanComponent implements OnInit, OnDestroy {
       const dialogRef = this.dialog.open<string>(EditTaskComponent, {ariaModal: true, hasBackdrop: true, disableClose: false, backdropClass: 'dialogBackdrop', data:  this.selectedTask});
     }
   }
-  onUpdateTask(taskID: number, action: string, formObj?: NgForm){
+  onUpdateTask(taskID: number, action: string, item?: Task, formObj?: NgForm){
     if (formObj) {
 
     this.taskDetail.title = formObj.value.title;
@@ -101,6 +92,10 @@ export class KanBanComponent implements OnInit, OnDestroy {
     this.tasksService.updateTask(this.taskDetail, action);
     this.refreshList();
     return
+    } if (item){
+      this.tasksService.updateTask(item, action);
+      this.refreshList();
+      return
     }
 
     this.taskDetail.taskID = taskID;

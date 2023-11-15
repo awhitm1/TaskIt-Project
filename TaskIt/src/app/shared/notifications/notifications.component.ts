@@ -26,14 +26,10 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       else {
         this._snackBar.open(`Task ID ${data.taskID} has been ${data.lastAction}: ${data.title} at ${data.dueDate} with ${data.priority} Priority with Status: ${data.status}`, "OK", {duration: 3000, horizontalPosition: 'center', verticalPosition: 'top'})
       }
-
-
     })
   }
 
   ngOnDestroy(){
     this.taskItemChangeSub.unsubscribe();
   }
-
-
 }

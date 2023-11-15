@@ -26,7 +26,9 @@ export class EditTaskComponent implements OnInit{
   }
   onUpdateTask(taskID: number, action: string, formObj?: NgForm){
     if (formObj) {
-
+    console.log(formObj);
+    console.log(formObj.value);
+    console.log(formObj.value.title);
     this.data.title = formObj.value.title;
     this.data.dueDate = formObj.value.dueDate;
     this.data.priority = formObj.value.priority;

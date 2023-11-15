@@ -7,7 +7,7 @@
     </div>
 
     <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="kanBanTasksToDo"
-        class="list" (cdkDropListDropped)="drop($event, 'In Progress')">
+        class="list" (cdkDropListDropped)="drop($event, 'To-Do')">
       <div class="list-item" *ngFor="let item of kanBanTasksToDo, index as i" cdkDrag style="text-align: center;">
         <mat-card class="task-card">
           <mat-card-header [ngClass]="{'priorityHigh': item.priority === 'High', 'priorityMedium': item.priority === 'Medium', 'priorityLow': item.priority === 'Low'}">
@@ -19,7 +19,7 @@
                 <div class="column">
                       <form>
                         <div class="form-group dropBoxStyle" >
-                        <select [(ngModel)]="item.status" name="choose-status" (change)="onUpdateTask(item, 'edit')">
+                        <select [(ngModel)]="item.status" name="choose-status" (change)="onUpdateTask(item.taskID, 'edit', item)">
                           <option value="To-Do">To-Do</option>
                           <option value="In Progress">In Progress</option>
                           <option value="Done">Done</option>
@@ -38,7 +38,7 @@
                 <form>
                   <div class="form-group dropBoxStyle">
                     <label>Priority: </label>
-                    <select [(ngModel)]="item.priority" name="task-priority" (change)="onUpdateTask(item, 'edit')">
+                    <select [(ngModel)]="item.priority" name="task-priority" (change)="onUpdateTask(item.taskID, 'edit', item)">
                       <option value="High">High</option>
                       <option value="Medium">Medium</option>
                       <option value="Low">Low</option>
@@ -62,7 +62,7 @@
           </mat-card-actions>
 
           <mat-card-footer>
-            <mat-progress-bar mode="indeterminate" [color]="color"></mat-progress-bar>
+            <mat-progress-bar mode="buffer" [value]=50 [color]="color"></mat-progress-bar>
           </mat-card-footer>
         </mat-card>
       </div>
@@ -88,7 +88,7 @@
                 <div class="column">
                       <form>
                         <div class="form-group dropBoxStyle" >
-                        <select [(ngModel)]="item.status" name="choose-status" (change)="onUpdateTask(item, 'edit')">
+                        <select [(ngModel)]="item.status" name="choose-status" (change)="onUpdateTask(item.taskID, 'edit', item)">
                           <option value="To-Do">To-Do</option>
                           <option value="In Progress">In Progress</option>
                           <option value="Done">Done</option>
@@ -107,7 +107,7 @@
                 <form>
                   <div class="form-group dropBoxStyle">
                     <label>Priority: </label>
-                    <select [(ngModel)]="item.priority" name="task-priority" (change)="onUpdateTask(item, 'edit')">
+                    <select [(ngModel)]="item.priority" name="task-priority" (change)="onUpdateTask(item.taskID, 'edit', item)">
                       <option value="High">High</option>
                       <option value="Medium">Medium</option>
                       <option value="Low">Low</option>
@@ -156,7 +156,7 @@
                 <div class="column">
                       <form>
                         <div class="form-group dropBoxStyle">
-                        <select [(ngModel)]="item.status" name="choose-status" (change)="onUpdateTask(item, 'edit')">
+                        <select [(ngModel)]="item.status" name="choose-status" (change)="onUpdateTask(item.taskID, 'edit', item)">
                           <option value="To-Do">To-Do</option>
                           <option value="In Progress">In Progress</option>
                           <option value="Done">Done</option>
@@ -177,7 +177,7 @@
                 <form>
                   <div class="form-group dropBoxStyle">
                     <label>Priority: </label>
-                    <select [(ngModel)]="item.priority" name="task-priority" (change)="onUpdateTask(item, 'edit')">
+                    <select [(ngModel)]="item.priority" name="task-priority" (change)="onUpdateTask(item.taskID, 'edit', item)">
                       <option value="High">High</option>
                       <option value="Medium">Medium</option>
                       <option value="Low">Low</option>

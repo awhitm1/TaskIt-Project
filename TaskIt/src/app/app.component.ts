@@ -6,23 +6,10 @@ import { Router } from '@angular/router'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  // loadedDisplay = 'task-list';
 
-
-
-
-  constructor(private router: Router){
-
-  }
+  constructor(private router: Router){}
 
   ngOnInit(): void {
-      this.router.navigate
-  }
-
-
-
-  onChangeDisplay (display: string){
-
-    // this.loadedDisplay = display;
+      this.router.navigate([''])
   }
 }

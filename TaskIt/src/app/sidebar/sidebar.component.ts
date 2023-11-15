@@ -9,7 +9,6 @@ import { AuthService } from '../shared/auth/auth.service';
 export class SidebarComponent implements OnInit, OnDestroy{
   selectedButton: string;
   taskListSelected: boolean = true;
-  // onLanding: boolean = true;
   isAuthenticated: boolean = false;
 
   constructor(private authsvc: AuthService){}
@@ -25,7 +24,6 @@ export class SidebarComponent implements OnInit, OnDestroy{
   }
 
   onSelect(display: string){
-
     this.selectedButton = display;
     // this.onLanding = false;
     if (this.selectedButton === 'task-list'){
@@ -34,9 +32,4 @@ export class SidebarComponent implements OnInit, OnDestroy{
       this.taskListSelected = false;
     }
   }
-
-  // setLanding(){
-  //   this.onLanding = true;
-  // }
-
 }
