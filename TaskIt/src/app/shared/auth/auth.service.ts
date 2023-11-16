@@ -26,6 +26,7 @@ export interface AuthResponseData {
 export class AuthService {
   currentUser = new BehaviorSubject<User>(null);
   userToken: string = null;
+  isLogInMode: boolean = false;
 
   constructor(private http: HttpClient) { }
 
@@ -56,6 +57,10 @@ export class AuthService {
         this.handleAuth(email, localId, idToken, +expiresIn)
       })
     );
+  }
+
+  setIsLogInMode(value: boolean){
+    this.isLogInMode = value;
   }
 
 }

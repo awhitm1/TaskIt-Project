@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthResponseData, AuthService } from './auth.service';
 import { Observable } from 'rxjs';
@@ -11,15 +11,15 @@ import { TasksService } from 'src/app/tasklist/tasks/tasks.service';
   styleUrls: ['./auth.component.css']
 })
 
-export class AuthComponent {
-  isLoginMode: boolean = true;
+export class AuthComponent implements OnInit{
+  isLoginMode: boolean;
   errMsg: string = null;
   authObsrv: Observable<AuthResponseData>;
 
   constructor(private authService: AuthService, private router: Router, private tasksService: TasksService){}
 
-  setAuthMode(ind: boolean){
-    this.isLoginMode = ind;
+  ngOnInit(): void {
+      this.isLoginMode = this.authService.isLogInMode;
   }
 
 

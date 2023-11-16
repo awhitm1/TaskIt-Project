@@ -35,6 +35,7 @@ export class KanBanComponent implements OnInit, OnDestroy {
     this.kanBanTasks = this.tasksService.getTasks();
     this.sub = this.tasksService.taskListChanged.subscribe((tasks: Task[]) => {
       this.kanBanTasks=tasks
+      this.refreshList();
     });
       this.refreshList();
   }

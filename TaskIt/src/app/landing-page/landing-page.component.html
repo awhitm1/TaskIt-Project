@@ -15,6 +15,6 @@
     <p> Create an account to get started today.</p>
   </div>
   <div>
-    <button class="btn btn-primary m-2" routerLink="/auth">Sign-up</button>or<button class="btn btn-light m-2" routerLink="/auth">Login</button>
+    <button class="btn btn-primary m-2" routerLink="/auth" routerLinkActive="active" (click)="loginMode(false)">Sign-up</button>or<button class="btn btn-light m-2" routerLink="/auth" routerLinkActive="active" (click)="loginMode(true)">Login</button>
   </div>
 </div>
