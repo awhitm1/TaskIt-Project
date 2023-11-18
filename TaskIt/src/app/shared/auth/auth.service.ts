@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, tap } from 'rxjs';
+import { Subject, tap } from 'rxjs';
 import { User } from './user.model';
 
 
@@ -24,7 +24,7 @@ export interface AuthResponseData {
 })
 
 export class AuthService {
-  currentUser = new BehaviorSubject<User>(null);
+  currentUser = new Subject<User>;
   userToken: string = null;
   isLogInMode: boolean = false;
 
@@ -34,7 +34,7 @@ export class AuthService {
     return this.http.post<AuthResponseData>(signUpURL+apiKey, {email, password, returnSecureToken: true}).pipe(
       tap(res => {
         const {email, localId, idToken, expiresIn } = res;
-
+        debugger
         this.handleAuth(email, localId, idToken, +expiresIn)
       })
     );
