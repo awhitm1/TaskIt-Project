@@ -6,22 +6,16 @@ import { AuthService } from '../shared/auth/auth.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit, OnDestroy{
+export class SidebarComponent {
   selectedButton: string;
   taskListSelected: boolean = true;
-  isAuthenticated: boolean = false;
+
 
   constructor(private authsvc: AuthService){}
 
-  ngOnInit(): void {
-      this.authsvc.currentUser.subscribe((user) => {
-        this.isAuthenticated = !!user;
-      })
-  }
 
-  ngOnDestroy(): void {
-    this.authsvc.currentUser.unsubscribe();
-  }
+
+
 
   onSelect(display: string){
     this.selectedButton = display;
