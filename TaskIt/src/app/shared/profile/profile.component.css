@@ -6,3 +6,18 @@
   background-image: url('https://source.unsplash.com/50x50/?scenery');
   background-size: cover;
 }
+
+.wrap {
+  inline-size: 150px;
+  overflow-wrap: break-word;
+}
+
+.profile-block {
+  padding: 10px 0px 0px 3px;
+  font-size: .8rem;
+  display: inline-block;
+}
+.profile-text {
+  display: inline;
+  margin-top: 5px;
+}
