@@ -4,7 +4,8 @@ export class User{
     public id: string,
     private _token: string,
     private _tokenExpirationDate: Date,
-    public name?: string,
+    public firstName?: string,
+    public lastName?: string,
     public imgPath?: string
   ){}
 

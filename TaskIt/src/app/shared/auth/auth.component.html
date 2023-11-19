@@ -1,10 +1,44 @@
 
-
-
-
 <div class="row">
   <div class="col-xs-12 col-md-6 offset-md-3">
+    <h1>{{ isLoginMode ? "Sign In to " : "Sign Up for " }}<span><b style="color: green">TASK</b></span><span style="color: black">It</span></h1>
     <form #authFormRef="ngForm" (ngSubmit)="onAuthFormSubmit(authFormRef)">
+      <div *ngIf="!isLoginMode">
+        <div class="row">
+          <label for="firstName">First Name</label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              class="form-control"
+              ngModel
+              required
+            />
+
+          <label for="lastName">Last Name</label>
+            <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            class="form-control"
+            ngModel
+           required
+          />
+        </div>
+          <label for="imgPath">Profile Image</label>
+            <input
+            type="text"
+            id="imgPath"
+            name="imgPath"
+            class="form-control"
+            ngModel
+            required
+          />
+
+      </div>
+
+
+
       <!-- EMAIL -->
       <label for="email">Email</label>
       <input
@@ -32,10 +66,15 @@
       <!-- . . . -->
 
       <!-- BUTTONS -->
-      <button class="btn btn-primary" type="submit" [disabled]="!authFormRef.valid">
+      <div class="p-2">
+        <button class="btn btn-primary" type="submit" [disabled]="!authFormRef.valid">
         {{ isLoginMode ? "Sign In" : "Sign Up" }}
-      </button>
-      <!-- . . . -->
+        </button> |
+        <button class="btn btn-success" type="button" routerLink="">Cancel</button>
+
+        </div>
+
+
     </form>
     <p class="alert alert-danger mt-3" *ngIf="errMsg">{{ errMsg }}</p>
   </div>

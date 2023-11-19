@@ -27,23 +27,24 @@ export class AuthComponent implements OnInit{
     console.log('Form Values:', formObj.value);
     if (!formObj.valid) return;
 
-    const { email, password} = formObj.value;
+    const { email, password, firstName, lastName, imgPath} = formObj.value;
 
     if (this.isLoginMode){
       this.authObsrv = this.authService.signIn(email, password);
     } else {
-      this.authObsrv = this.authService.signUp(email, password);
+
+      this.authObsrv = this.authService.signUp(email, password, firstName, lastName, imgPath);
     }
 
     this.authObsrv.subscribe(
       (res) => {
-        console.log('Auth Res Success:', res);
+        console.log('Auth Comp Res Success:', res);
       if (this.errMsg) this.errMsg = null;
       this.tasksService.fetchTasksFromFirebase();
       this.router.navigate(['tasklist']);
     },
     (err) => {
-      console.error('Auth Res Error:', err);
+      console.error('Auth Comp Res Error:', err);
       this.errMsg = err.message;
     }
     );

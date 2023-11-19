@@ -32,12 +32,14 @@ export class EditTaskComponent implements OnInit{
     this.data.priority = formObj.value.priority;
     this.data.status = formObj.value.status;
     this.data.taskID = taskID;
+    console.log(this.data)
     this.tasksService.updateTask(this.data, action);
       this.dialogRef.close();
     return
     }
 
     this.data.taskID = taskID;
+
     this.tasksService.updateTask(this.data, action);
   }
 

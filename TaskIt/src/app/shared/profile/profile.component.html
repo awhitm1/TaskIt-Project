@@ -46,12 +46,12 @@
 
 <div class="d-flex flex-row mt-auto border-top border-1 align-items-center">
   <div>
-    <img src="https://source.unsplash.com/50x50/?scenery" class="img-responsive rounded-circle" alt="{{this.currentUser.email}}">
+    <img src="{{this.currentUserProfile.imgPath}}" class="img-responsive rounded-circle" alt="{{this.currentUser.firstName}} {{this.currentUserProfile.lastName}}">
   </div>
   <div class="profile-block">
     <b>
-      <span class="profile-text">User Name</span>
-      <p>{{this.currentUser.email}}</p>
+      <span class="profile-text">{{this.currentUserProfile.firstName}} {{this.currentUserProfile.lastName}}</span>
+      <p>{{this.currentUserProfile.email}}</p>
     </b>
   </div>
   <div>

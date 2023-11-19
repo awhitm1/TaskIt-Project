@@ -12,15 +12,27 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
 export class TasksService {
   taskListChanged = new Subject<Task[]>();
   taskItemChanged = new Subject<Task>();
-  firebaseRootUrl = "https://taskit-55d07-default-rtdb.firebaseio.com/mytasks.json";
-  private myTasks: Task[] = [new Task ('', null, '', '', null)];
+  firebaseRootUrlTasks = "https://taskit-55d07-default-rtdb.firebaseio.com/";
+
+
+
+  private myTasks: Task[] = [new Task('Edit or Delete this task', new Date(), 'Low', 'To Do', 1)];
 
   constructor(private http: HttpClient, private authsvc: AuthService) {}
 
   fetchTasksFromFirebase(){
-    return this.http.get<Task[]>(this.firebaseRootUrl, {}).subscribe((res: Task[] | []) => {
-      this.setTasks(res)
-    });
+    let localData = JSON.parse(localStorage.getItem('userData'));
+    console.log("From Fetch: ", localData);
+    if (localData.firstName) {
+      this.getTasks();
+      return
+    } else{
+      return this.http.get<Task[]>(this.firebaseRootUrlTasks + localData.id +".json", {}).subscribe((res: Task[] | []) => {
+        this.setTasks(res)
+      });
+
+    }
+
   }
 
   setTasks(fetched: Task[]){
@@ -29,7 +41,10 @@ export class TasksService {
   }
 
   updateTask( task: Task, action: string){
+    let localData = JSON.parse(localStorage.getItem('userData'));
     const taskIndex = this.myTasks.findIndex(tasks => tasks.taskID === task.taskID);
+    console.log(taskIndex);
+    console.log(this.myTasks)
     if (taskIndex !== -1){
       if(action === 'edit'){
       this.myTasks[taskIndex] = {
@@ -37,7 +52,8 @@ export class TasksService {
         ...task
         }
         this.myTasks[taskIndex].lastAction = 'edited';
-        this.http.put(this.firebaseRootUrl, this.myTasks).subscribe(res => { console.log("Firebase DB Response (edit): ", res);});
+        this.http.put(this.firebaseRootUrlTasks + localData.id +".json", this.myTasks).subscribe(res => { console.log("Firebase DB Response (edit): ", res);});
+
         this.taskItemChanged.next(this.myTasks[taskIndex]);
         this.taskListChanged.next(this.myTasks.slice());
       }
@@ -46,18 +62,20 @@ export class TasksService {
         const delItem = this.myTasks[taskIndex];
         delItem.lastAction = 'deleted';
         this.myTasks.splice(taskIndex,1);
-        this.http.put(this.firebaseRootUrl, this.myTasks).subscribe(res => { console.log("Firebase DB Response (del): ", res);});
+        this.http.put(this.firebaseRootUrlTasks + localData.id + ".json", this.myTasks).subscribe(res => { console.log("Firebase DB Response (del): ", res);});
         this.taskItemChanged.next(delItem);
         this.taskListChanged.next(this.myTasks.slice());
       }
       else return;
     }
       if (taskIndex == -1 && action === 'add') {
+        console.log("adding...")
         task.lastAction = 'added';
         task.taskID = Math.floor(Math.random()*1000000);
 
         this.myTasks.push(task);
-        this.http.put(this.firebaseRootUrl, this.myTasks).subscribe(res => { console.log("Firebase DB Response (add): ", res);
+        console.log(this.myTasks)
+        this.http.put(this.firebaseRootUrlTasks + localData.id + ".json", this.myTasks).subscribe(res => { console.log("Firebase DB Response (add): ", res);
       });
         this.taskItemChanged.next(this.myTasks[this.myTasks.findIndex(tasks => tasks.taskID === task.taskID)]);
         this.taskListChanged.next(this.myTasks.slice());
@@ -70,8 +88,9 @@ export class TasksService {
   }
 
   updateAllTasks(tasks: Task[]){
+    let localData = JSON.parse(localStorage.getItem('userData'));
     this.myTasks = tasks;
-    this.http.put(this.firebaseRootUrl, this.myTasks).subscribe(res => { console.log("Firebase DB Response (update): ", res);});
+    this.http.put(this.firebaseRootUrlTasks + localData.id + ".json", this.myTasks).subscribe(res => { console.log("Firebase DB Response (update): ", res);});
     this.taskListChanged.next(this.myTasks.slice())
   }
 
