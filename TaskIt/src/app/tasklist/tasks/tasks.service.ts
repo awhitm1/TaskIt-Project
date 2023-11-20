@@ -23,16 +23,15 @@ export class TasksService {
   fetchTasksFromFirebase(){
     let localData = JSON.parse(localStorage.getItem('userData'));
     console.log("From Fetch: ", localData);
+
     if (localData.firstName) {
-      this.getTasks();
+      this.taskListChanged.next(this.myTasks.slice());
       return
-    } else{
+    } else {
       return this.http.get<Task[]>(this.firebaseRootUrlTasks + localData.id +".json", {}).subscribe((res: Task[] | []) => {
         this.setTasks(res)
       });
-
     }
-
   }
 
   setTasks(fetched: Task[]){
@@ -43,8 +42,7 @@ export class TasksService {
   updateTask( task: Task, action: string){
     let localData = JSON.parse(localStorage.getItem('userData'));
     const taskIndex = this.myTasks.findIndex(tasks => tasks.taskID === task.taskID);
-    console.log(taskIndex);
-    console.log(this.myTasks)
+
     if (taskIndex !== -1){
       if(action === 'edit'){
       this.myTasks[taskIndex] = {
@@ -74,7 +72,7 @@ export class TasksService {
         task.taskID = Math.floor(Math.random()*1000000);
 
         this.myTasks.push(task);
-        console.log(this.myTasks)
+
         this.http.put(this.firebaseRootUrlTasks + localData.id + ".json", this.myTasks).subscribe(res => { console.log("Firebase DB Response (add): ", res);
       });
         this.taskItemChanged.next(this.myTasks[this.myTasks.findIndex(tasks => tasks.taskID === task.taskID)]);
@@ -84,7 +82,7 @@ export class TasksService {
   }
 
   getTasks(){
-    return this.myTasks;
+    return this.myTasks.slice();
   }
 
   updateAllTasks(tasks: Task[]){

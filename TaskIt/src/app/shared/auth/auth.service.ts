@@ -30,7 +30,7 @@ export class AuthService {
   userToken: string = null;
   isLogInMode: boolean = false;
   firebaseRootUrlTasks = "https://taskit-55d07-default-rtdb.firebaseio.com/";
-  initDB: Task[] = [new Task('', null, '', '', null)];
+  // initDB: Task[] = [{title: 'Edit or Delete this Task', dueDate: new Date(), priority: 'Low', status: 'To Do', taskID: Math.floor(Math.random()*1000000)}];
 
   constructor(private http: HttpClient) { }
 
@@ -49,8 +49,9 @@ export class AuthService {
     const expDate = new Date(new Date().getTime() + expiresIn *1000);
     const formUser = new User(email, userId, token, expDate, firstName, lastName, imgpath);
     this.currentUser.next(formUser);
+
     // if (formUser.firstName){
-    //   this.http.post(this.firebaseRootUrlTasks + formUser.id + ".json", this.initDB).subscribe(res => { console.log("Firebase DB Response (init): ", res);});
+    //   this.http.post(this.firebaseRootUrlTasks + formUser.id + ".json", []).subscribe(res => { console.log("Firebase DB Response (init): ", res);});
     // }
 
     localStorage.setItem("userData", JSON.stringify(formUser));
