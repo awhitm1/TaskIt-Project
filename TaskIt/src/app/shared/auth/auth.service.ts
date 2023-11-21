@@ -45,16 +45,15 @@ export class AuthService {
     );
   }
 
-  handleAuth(email: string, userId: string, token: string, expiresIn: number, firstName?: string, lastName?: string, imgpath?: string) {
+  handleAuth(email: string, userId: string, token: string, expiresIn: number, firstName?: string, lastName?: string,   imgpath?: string) {
     const expDate = new Date(new Date().getTime() + expiresIn *1000);
     const formUser = new User(email, userId, token, expDate, firstName, lastName, imgpath);
+
     this.currentUser.next(formUser);
 
-    // if (formUser.firstName){
-    //   this.http.post(this.firebaseRootUrlTasks + formUser.id + ".json", []).subscribe(res => { console.log("Firebase DB Response (init): ", res);});
-    // }
-
     localStorage.setItem("userData", JSON.stringify(formUser));
+
+
   }
 
   signIn(email: string, password: string){

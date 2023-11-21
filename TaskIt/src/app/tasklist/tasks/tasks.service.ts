@@ -16,27 +16,27 @@ export class TasksService {
 
 
 
-  private myTasks: Task[] = [new Task('Edit or Delete this task', new Date(), 'Low', 'To Do', 1)];
+  myTasks: Task[] = [new Task('Edit or Delete this task', new Date(), 'Low', 'To-Do', 1)];
 
   constructor(private http: HttpClient, private authsvc: AuthService) {}
 
   fetchTasksFromFirebase(){
-    let localData = JSON.parse(localStorage.getItem('userData'));
-    console.log("From Fetch: ", localData);
+      let localData = JSON.parse(localStorage.getItem('userData'));
 
-    if (localData.firstName) {
-      this.taskListChanged.next(this.myTasks.slice());
-      return
-    } else {
       return this.http.get<Task[]>(this.firebaseRootUrlTasks + localData.id +".json", {}).subscribe((res: Task[] | []) => {
         this.setTasks(res)
       });
     }
-  }
+
 
   setTasks(fetched: Task[]){
-    this.myTasks = fetched;
+    if (fetched) {
+      this.myTasks = fetched;
     this.taskListChanged.next(this.myTasks.slice());
+    } else {
+      this.taskListChanged.next(this.myTasks)
+    }
+
   }
 
   updateTask( task: Task, action: string){
@@ -82,6 +82,7 @@ export class TasksService {
   }
 
   getTasks(){
+    console.log("getting tasks: ", this.myTasks)
     return this.myTasks.slice();
   }
 
