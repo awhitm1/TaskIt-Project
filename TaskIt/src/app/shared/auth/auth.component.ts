@@ -48,7 +48,7 @@ export class AuthComponent implements OnInit{
       if (!!firstName){
 
         const newProfile = new Profile(res.localId, firstName, lastName, email, imgPath)
-        this.profilesvc.addNewProfile(newProfile);
+
         this.authService.setIsLogInMode(true);
         this.isLoginMode = true;
         this.router.navigate(['auth']);

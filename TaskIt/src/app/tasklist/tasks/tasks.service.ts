@@ -24,6 +24,7 @@ export class TasksService {
       let localData = JSON.parse(localStorage.getItem('userData'));
 
       return this.http.get<Task[]>(this.firebaseRootUrlTasks + localData.id +".json", {}).subscribe((res: Task[] | []) => {
+        console.log("fetch tasks: ", res)
         this.setTasks(res)
       });
     }
@@ -31,6 +32,7 @@ export class TasksService {
 
   setTasks(fetched: Task[]){
     if (fetched) {
+      console.log("setting tasks: ", fetched)
       this.myTasks = fetched;
     this.taskListChanged.next(this.myTasks.slice());
     } else {
