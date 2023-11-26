@@ -4,7 +4,7 @@
     <h1>{{ isLoginMode ? "Sign In to " : "Sign Up for " }}<span><b style="color: green">TASK</b></span><span style="color: black">It</span></h1>
     <form #authFormRef="ngForm" (ngSubmit)="onAuthFormSubmit(authFormRef)">
       <div *ngIf="!isLoginMode">
-        <div class="row">
+        <div>
           <label for="firstName">First Name</label>
             <input
               type="text"
@@ -25,6 +25,7 @@
            required
           />
         </div>
+
           <label for="imgPath">Profile Image</label>
             <input
             type="text"
